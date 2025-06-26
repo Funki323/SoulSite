@@ -3,167 +3,430 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soul - Roblox Executor</title>
+    <title>Xeno - Free & Premium Executor</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
-        body {
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
-            min-height: 100vh;
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        .gradient-border {
-            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-            padding: 2px;
-            border-radius: 12px;
+        .premium-gradient {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
-        .gradient-border-inner {
-            background: #1a1a2e;
-            border-radius: 10px;
-            padding: 1rem;
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
         }
-        .glow-effect {
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        .tab-content.active {
+            display: block;
+            opacity: 1;
         }
-        .download-btn {
-            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
-            transition: all 0.3s ease;
+        .tab-button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+        .feature-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
     </style>
 </head>
-<body class="text-white">
-    <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
-        <header class="text-center mb-12">
-            <h1 class="text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                Soul
-            </h1>
-            
-            <!-- Download Button -->
-            <div class="mb-8">
-                <button class="download-btn text-white font-bold py-4 px-8 rounded-lg text-xl inline-flex items-center">
-                    <i class="fas fa-download mr-3"></i>
-                    Download Now
+<body class="bg-gray-900 text-white">
+    <!-- Header -->
+    <header class="bg-gray-800 py-4 sticky top-0 z-50">
+        <nav class="container mx-auto px-4 flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <span class="text-purple-400">Xeno</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <button onclick="showTab('home')" class="tab-button active hover:text-purple-400 transition-colors">Home</button>
+                <button onclick="showTab('features')" class="tab-button hover:text-purple-400 transition-colors">Features</button>
+                <button onclick="showTab('pricing')" class="tab-button hover:text-purple-400 transition-colors">Pricing</button>
+                <button onclick="showTab('download')" class="tab-button hover:text-purple-400 transition-colors">Download</button>
+                <button onclick="showTab('faq')" class="tab-button hover:text-purple-400 transition-colors">FAQ</button>
+            </div>
+            <div class="md:hidden">
+                <button onclick="toggleMobileMenu()" class="text-white">
+                    <i class="fas fa-bars"></i>
                 </button>
             </div>
-            
-            <!-- Navigation -->
-            <nav class="mb-8">
-                <a href="#help" class="text-blue-300 hover:text-white mx-4 transition-colors">
-                    <i class="fas fa-question-circle mr-2"></i>Help & Tutorial
-                </a>
-            </nav>
-            
-            <!-- Description -->
-            <p class="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                Soul executor is a free, keyless external executor for Roblox to optimize your gaming experience.
-            </p>
-        </header>
+        </nav>
+    </header>
 
-        <!-- FAQ Section -->
-        <section id="help" class="max-w-4xl mx-auto mb-12">
-            <h2 class="text-3xl font-bold text-center mb-8 text-blue-300">
-                Frequently Asked Questions
-            </h2>
-            
-            <div class="space-y-6">
-                <!-- FAQ Item 1 -->
-                <div class="gradient-border glow-effect">
-                    <div class="gradient-border-inner">
-                        <h3 class="text-xl font-semibold mb-3 text-green-400">
-                            <i class="fas fa-shield-alt mr-2"></i>Is Xeno Safe?
-                        </h3>
-                        <p class="text-gray-300 leading-relaxed">
-                            Yes, Soul is safe to use. It is a legit utility software without any protection to its core components so you could reverse it yourself and see how Soul works! Make sure that you are getting Soul from the official website.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- FAQ Item 2 -->
-                <div class="gradient-border glow-effect">
-                    <div class="gradient-border-inner">
-                        <h3 class="text-xl font-semibold mb-3 text-yellow-400">
-                            <i class="fas fa-ban mr-2"></i>Can I get banned with Soul?
-                        </h3>
-                        <p class="text-gray-300 leading-relaxed">
-                            It is possible to get banned from using Soul because Soul is a utility software for Roblox but the chances are slim must use newer ver.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- FAQ Item 3 -->
-                <div class="gradient-border glow-effect">
-                    <div class="gradient-border-inner">
-                        <h3 class="text-xl font-semibold mb-3 text-purple-400">
-                            <i class="fas fa-sync-alt mr-2"></i>How often does Soul update?
-                        </h3>
-                        <p class="text-gray-300 leading-relaxed">
-                            Soul gets regular updates, 1 week prior to a Roblox update, to keep everything running smoothly and stay compatible with the latest changes.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Call to Action -->
-        <section class="text-center mb-12">
-            <h2 class="text-4xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Experience the future
-            </h2>
-        </section>
-
-        <!-- Footer -->
-        <footer class="text-center border-t border-gray-700 pt-8">
-            <div class="flex justify-center space-x-8 mb-4">
-                <a href="#credits COMING SOON" class="text-blue-300 hover:text-white transition-colors">
-                    <i class="fas fa-users mr-1"></i>Credits
-                </a>
-                <a href="#help COMING SOON" class="text-blue-300 hover:text-white transition-colors">
-                    <i class="fas fa-question-circle mr-1"></i>Help
-                </a>
-                <a href="#download" class="text-blue-300 hover:text-white transition-colors">
-                    <i class="fas fa-download mr-1"></i>Download
-                </a>
-                <a href="#donate COMING SOON" class="text-blue-300 hover:text-white transition-colors">
-                    <i class="fas fa-heart mr-1"></i>Donate
-                </a>
-            </div>
-            <p class="text-gray-400 text-sm">
-                &copy; 2024 Soul. All rights reserved.
-            </p>
-        </footer>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-gray-800 py-2">
+        <div class="container mx-auto px-4 flex flex-col space-y-2">
+            <button onclick="showTab('home')" class="tab-button text-left py-2 hover:text-purple-400">Home</button>
+            <button onclick="showTab('features')" class="tab-button text-left py-2 hover:text-purple-400">Features</button>
+            <button onclick="showTab('pricing')" class="tab-button text-left py-2 hover:text-purple-400">Pricing</button>
+            <button onclick="showTab('download')" class="tab-button text-left py-2 hover:text-purple-400">Download</button>
+            <button onclick="showTab('faq')" class="tab-button text-left py-2 hover:text-purple-400">FAQ</button>
+        </div>
     </div>
 
+    <!-- Home Tab -->
+    <div id="home" class="tab-content active">
+        <!-- Hero Section -->
+        <section class="gradient-bg py-20">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                    Xeno <span class="text-yellow-300">Executor</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                    The ultimate Roblox executor experience - now available in both free and premium versions
+                </p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <button onclick="showTab('download')" class="bg-white text-gray-900 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-download mr-2"></i>Download Free
+                    </button>
+                    <button onclick="showTab('pricing')" class="premium-gradient px-8 py-4 rounded-lg text-lg font-semibold hover:opacity-90 transition-opacity">
+                        <i class="fas fa-crown mr-2"></i>Go Premium
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Free vs Premium Comparison -->
+        <section class="py-16 bg-gray-800">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12">Free vs Premium</h2>
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- Free Version -->
+                    <div class="bg-gray-700 p-8 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-center">
+                            <i class="fas fa-gift mr-2 text-green-400"></i>Free Version
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Basic script execution</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Regular updates</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Community support</li>
+                            <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Safe & secure</li>
+                            <li class="flex items-center"><i class="fas fa-times text-red-400 mr-3"></i>Limited features</li>
+                            <li class="flex items-center"><i class="fas fa-times text-red-400 mr-3"></i>No priority support</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Premium Version -->
+                    <div class="bg-gradient-to-br from-purple-600 to-pink-600 p-8 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-center">
+                            <i class="fas fa-crown mr-2 text-yellow-300"></i>Premium Version
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Advanced script execution</li>
+                            <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Priority updates</li>
+                            <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Premium support</li>
+                            <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Enhanced security</li>
+                            <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Exclusive features</li>
+                            <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Faster execution</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Features Tab -->
+    <div id="features" class="tab-content">
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12">Features</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <i class="fas fa-rocket text-4xl feature-icon mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3">Fast Execution</h3>
+                        <p class="text-gray-300">Lightning-fast script execution with optimized performance</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-shield-alt text-4xl feature-icon mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3">Secure & Safe</h3>
+                        <p class="text-gray-300">Built with security in mind, protecting your gaming experience</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-sync-alt text-4xl feature-icon mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3">Regular Updates</h3>
+                        <p class="text-gray-300">Consistent updates to maintain compatibility with Roblox</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-code text-4xl feature-icon mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3">Advanced Scripting</h3>
+                        <p class="text-gray-300">Support for complex scripts and advanced functionality</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-users text-4xl feature-icon mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3">Community Support</h3>
+                        <p class="text-gray-300">Active community and support channels</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-mobile-alt text-4xl feature-icon mb-4"></i>
+                        <h3 class="text-xl font-bold mb-3">Cross-Platform</h3>
+                        <p class="text-gray-300">Works seamlessly across different platforms</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Pricing Tab -->
+    <div id="pricing" class="tab-content">
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12">Choose Your Plan</h2>
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    
+                    <!-- Free Plan -->
+                    <div class="pricing-card bg-gray-800 p-8 rounded-lg">
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold mb-4">Free</h3>
+                            <div class="text-4xl font-bold mb-6">$0<span class="text-lg text-gray-400">/month</span></div>
+                            <ul class="space-y-3 mb-8 text-left">
+                                <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Basic execution engine</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Community scripts</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Standard updates</li>
+                                <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Basic support</li>
+                            </ul>
+                            <button onclick="showTab('download')" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors">
+                                Download Free
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Premium Plan -->
+                    <div class="pricing-card bg-gradient-to-br from-purple-600 to-pink-600 p-8 rounded-lg transform scale-105">
+                        <div class="text-center">
+                            <div class="bg-yellow-400 text-black px-3 py-1 rounded-full text-sm font-bold mb-4 inline-block">
+                                MOST POPULAR
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">Premium</h3>
+                            <div class="text-4xl font-bold mb-6">$9.99<span class="text-lg text-gray-200">/month</span></div>
+                            <ul class="space-y-3 mb-8 text-left">
+                                <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Advanced execution engine</li>
+                                <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Exclusive premium scripts</li>
+                                <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Priority updates</li>
+                                <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Premium support</li>
+                                <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Enhanced security</li>
+                                <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Faster execution</li>
+                            </ul>
+                            <button class="w-full bg-white text-purple-600 py-3 rounded-lg hover:bg-gray-100 transition-colors font-bold">
+                                Get Premium
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Lifetime Plan -->
+                    <div class="pricing-card bg-gray-800 p-8 rounded-lg">
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold mb-4">Lifetime</h3>
+                            <div class="text-4xl font-bold mb-6">$49.99<span class="text-lg text-gray-400">/once</span></div>
+                            <ul class="space-y-3 mb-8 text-left">
+                                <li class="flex items-center"><i class="fas fa-check text-gold mr-3"></i>All Premium features</li>
+                                <li class="flex items-center"><i class="fas fa-check text-gold mr-3"></i>Lifetime access</li>
+                                <li class="flex items-center"><i class="fas fa-check text-gold mr-3"></i>Exclusive beta features</li>
+                                <li class="flex items-center"><i class="fas fa-check text-gold mr-3"></i>VIP support</li>
+                                <li class="flex items-center"><i class="fas fa-check text-gold mr-3"></i>Special recognition</li>
+                            </ul>
+                            <button class="w-full bg-yellow-500 text-black py-3 rounded-lg hover:bg-yellow-600 transition-colors font-bold">
+                                Buy Lifetime
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Download Tab -->
+    <div id="download" class="tab-content">
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12">Download Xeno</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- Free Download -->
+                    <div class="bg-gray-800 p-8 rounded-lg text-center">
+                        <h3 class="text-2xl font-bold mb-4">
+                            <i class="fas fa-download mr-2"></i>Free Version
+                        </h3>
+                        <p class="text-gray-300 mb-6">Get started with our free executor - no registration required!</p>
+                        <div class="space-y-4">
+                            <button class="w-full bg-green-600 text-white py-4 rounded-lg text-lg font-bold hover:bg-green-700 transition-colors">
+                                <i class="fas fa-download mr-2"></i>Download Free Xeno
+                            </button>
+                            <p class="text-sm text-gray-400">Version 2.1.0 | Windows 10/11</p>
+                        </div>
+                    </div>
+
+                    <!-- Premium Download -->
+                    <div class="bg-gradient-to-br from-purple-600 to-pink-600 p-8 rounded-lg text-center">
+                        <h3 class="text-2xl font-bold mb-4">
+                            <i class="fas fa-crown mr-2"></i>Premium Version
+                        </h3>
+                        <p class="text-gray-100 mb-6">Access exclusive features and priority support!</p>
+                        <div class="space-y-4">
+                            <button class="w-full bg-white text-purple-600 py-4 rounded-lg text-lg font-bold hover:bg-gray-100 transition-colors">
+                                <i class="fas fa-crown mr-2"></i>Get Premium Access
+                            </button>
+                            <p class="text-sm text-gray-200">Requires premium subscription | All platforms</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Installation Instructions -->
+                <div class="mt-12 bg-gray-800 p-8 rounded-lg max-w-4xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-6 text-center">Installation Instructions</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-lg font-bold mb-3">For Free Version:</h4>
+                            <ol class="space-y-2 text-gray-300">
+                                <li>1. Download the free Xeno executor</li>
+                                <li>2. Extract the ZIP file to your desktop</li>
+                                <li>3. Run as administrator</li>
+                                <li>4. Attach to Roblox and start scripting</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold mb-3">For Premium Version:</h4>
+                            <ol class="space-y-2 text-gray-300">
+                                <li>1. Purchase premium subscription</li>
+                                <li>2. Download premium installer</li>
+                                <li>3. Login with your premium account</li>
+                                <li>4. Enjoy exclusive features</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FAQ Tab -->
+    <div id="faq" class="tab-content">
+        <section class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+                <div class="max-w-3xl mx-auto space-y-6">
+                    
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-3">Is Xeno Safe?</h3>
+                        <p class="text-gray-300">Yes, Xeno is safe to use. Both free and premium versions are regularly scanned and updated for security. Make sure to download from our official website only.</p>
+                    </div>
+
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-3">Can I get banned using Xeno?</h3>
+                        <p class="text-gray-300">There's always a risk when using third-party software with Roblox. However, our advanced anti-detection systems significantly reduce this risk, especially in the premium version.</p>
+                    </div>
+
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-3">What's the difference between Free and Premium?</h3>
+                        <p class="text-gray-300">Premium offers advanced execution engines, exclusive scripts, priority support, enhanced security features, and faster performance compared to the free version.</p>
+                    </div>
+
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-3">How often does Xeno update?</h3>
+                        <p class="text-gray-300">Free version updates within 24-48 hours of Roblox updates. Premium users get priority updates, usually within 12-24 hours, ensuring minimal downtime.</p>
+                    </div>
+
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-3">Can I upgrade from Free to Premium?</h3>
+                        <p class="text-gray-300">Absolutely! You can upgrade to Premium at any time. Your existing scripts and settings will be preserved during the upgrade process.</p>
+                    </div>
+
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-3">Do you offer refunds?</h3>
+                        <p class="text-gray-300">We offer a 7-day money-back guarantee for premium subscriptions if you're not satisfied with the service. Lifetime purchases have a 14-day guarantee.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-8 border-t border-gray-700">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Xeno</h3>
+                    <p class="text-gray-400">The ultimate Roblox executor for enhanced gaming experience.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><button onclick="showTab('home')" class="hover:text-white">Home</button></li>
+                        <li><button onclick="showTab('features')" class="hover:text-white">Features</button></li>
+                        <li><button onclick="showTab('pricing')" class="hover:text-white">Pricing</button></li>
+                        <li><button onclick="showTab('download')" class="hover:text-white">Download</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><button onclick="showTab('faq')" class="hover:text-white">FAQ</button></li>
+                        <li><a href="#" class="hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white">Discord</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white">DMCA</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Xeno Executor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        // Add smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+        function showTab(tabId) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
             });
-        });
 
-        // Add click event to download button
-        document.querySelector('.download-btn').addEventListener('click', function() {
-            // Soul Ex
-            alert('https://docs.google.com/presentation/d/1OcXWYhf-n05U4BqZzYVXM_lHPQ44TME5EtP32kDnmaY/edit?usp=sharing');
-        });
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
 
-        // Add floating animation to FAQ items
-        const faqItems = document.querySelectorAll('.gradient-border');
-        faqItems.forEach((item, index) => {
-            item.style.animationDelay = `${index * 0.1}s`;
-            item.classList.add('animate-pulse');
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Close mobile menu if open
+            document.getElementById('mobileMenu').classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuButton = event.target.closest('button');
+            
+            if (!menuButton || menuButton.onclick !== toggleMobileMenu) {
+                mobileMenu.classList.add('hidden');
+            }
         });
     </script>
+
 </body>
 </html>
