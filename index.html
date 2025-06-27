@@ -3,430 +3,699 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soul     - Free & Premium Executor</title>
+    <title>Soul Scripts - scripts build Discobarn</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .gradient-bg {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        .premium-gradient {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        .game-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .chat-message {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .notification {
+            animation: slideInRight 0.3s ease-out;
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(100%); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .discord-btn {
+            background: #5865F2;
+            transition: all 0.3s ease;
+        }
+        .discord-btn:hover {
+            background: #4752C4;
+            transform: scale(1.05);
         }
         .tab-content {
             display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
         }
         .tab-content.active {
             display: block;
-            opacity: 1;
+            animation: fadeIn 0.3s ease-in;
         }
-        .tab-button.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        .pricing-card:hover {
-            transform: translateY(-5px);
-            transition: transform 0.3s ease;
-        }
-        .feature-icon {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .stats-card {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-gray-900 text-white min-h-screen">
     <!-- Header -->
-    <header class="bg-gray-800 py-4 sticky top-0 z-50">
-        <nav class="container mx-auto px-4 flex justify-between items-center">
-            <div class="text-2xl font-bold">
-                <span class="text-purple-400">Soul</span>
+    <header class="gradient-bg shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-gamepad text-3xl text-white"></i>
+                    <h1 class="text-2xl font-bold text-white">GameHub</h1>
+                    <span class="bg-green-500 text-xs px-2 py-1 rounded-full pulse-dot">LIVE</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="discordBtn" class="discord-btn px-4 py-2 rounded-lg text-white font-medium flex items-center space-x-2">
+                        <i class="fab fa-discord"></i>
+                        <span>Join Discord</span>
+                    </button>
+                    <div class="relative">
+                        <button id="notificationBtn" class="relative p-2 rounded-full bg-gray-700 hover:bg-gray-600">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span id="notificationCount" class="absolute -top-1 -right-1 bg-red-500 text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <img src="https://via.placeholder.com/40x40/4facfe/ffffff?text=U" alt="User" class="w-10 h-10 rounded-full">
+                        <span class="font-medium">GamerPro</span>
+                    </div>
+                </div>
             </div>
-            <div class="hidden md:flex space-x-6">
-                <button onclick="showTab('home')" class="tab-button active hover:text-purple-400 transition-colors">Home</button>
-                <button onclick="showTab('features')" class="tab-button hover:text-purple-400 transition-colors">Features</button>
-                <button onclick="showTab('pricing')" class="tab-button hover:text-purple-400 transition-colors">Pricing</button>
-                <button onclick="showTab('download')" class="tab-button hover:text-purple-400 transition-colors">Download</button>
-                <button onclick="showTab('faq')" class="tab-button hover:text-purple-400 transition-colors">FAQ</button>
-            </div>
-            <div class="md:hidden">
-                <button onclick="toggleMobileMenu()" class="text-white">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="hidden md:hidden bg-gray-800 py-2">
-        <div class="container mx-auto px-4 flex flex-col space-y-2">
-            <button onclick="showTab('home')" class="tab-button text-left py-2 hover:text-purple-400">Home</button>
-            <button onclick="showTab('features')" class="tab-button text-left py-2 hover:text-purple-400">Features</button>
-            <button onclick="showTab('pricing')" class="tab-button text-left py-2 hover:text-purple-400">Pricing</button>
-            <button onclick="showTab('download')" class="tab-button text-left py-2 hover:text-purple-400">Download</button>
-            <button onclick="showTab('faq')" class="tab-button text-left py-2 hover:text-purple-400">FAQ</button>
-        </div>
-    </div>
-
-    <!-- Home Tab -->
-    <div id="home" class="tab-content active">
-        <!-- Hero Section -->
-        <section class="gradient-bg py-20">
-            <div class="container mx-auto px-4 text-center">
-                <h1 class="text-5xl md:text-7xl font-bold mb-6">
-                    Soul <span class="text-yellow-300">Executor</span>
-                </h1>
-                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-                    The ultimate Roblox executor experience - now available in both free and premium versions
-                </p>
-                <div class="flex flex-col md:flex-row gap-4 justify-center">
-                    <button onclick="showTab('download')" class="bg-white text-gray-900 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-download mr-2"></i>Download Free
-                    </button>
-                    <button onclick="showTab('pricing')" class="premium-gradient px-8 py-4 rounded-lg text-lg font-semibold hover:opacity-90 transition-opacity">
-                        <i class="fas fa-crown mr-2"></i>Go Premium
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Free vs Premium Comparison -->
-        <section class="py-16 bg-gray-800">
-            <div class="container mx-auto px-4">
-                <h2 class="text-4xl font-bold text-center mb-12">Free vs Premium</h2>
-                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <!-- Free Version -->
-                    <div class="bg-gray-700 p-8 rounded-lg">
-                        <h3 class="text-2xl font-bold mb-4 text-center">
-                            <i class="fas fa-gift mr-2 text-green-400"></i>Free Version
-                        </h3>
-                        <ul class="space-y-3">
-                            <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Basic script execution</li>
-                            <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Regular updates</li>
-                            <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Community support</li>
-                            <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Safe & secure</li>
-                            <li class="flex items-center"><i class="fas fa-times text-red-400 mr-3"></i>Limited features</li>
-                            <li class="flex items-center"><i class="fas fa-times text-red-400 mr-3"></i>No priority support</li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Premium Version -->
-                    <div class="bg-gradient-to-br from-purple-600 to-pink-600 p-8 rounded-lg">
-                        <h3 class="text-2xl font-bold mb-4 text-center">
-                            <i class="fas fa-crown mr-2 text-yellow-300"></i>Premium Version
-                        </h3>
-                        <ul class="space-y-3">
-                            <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Advanced script execution</li>
-                            <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Priority updates</li>
-                            <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Premium support</li>
-                            <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Enhanced security</li>
-                            <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Exclusive features</li>
-                            <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Faster execution</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Features Tab -->
-    <div id="features" class="tab-content">
-        <section class="py-16">
-            <div class="container mx-auto px-4">
-                <h2 class="text-4xl font-bold text-center mb-12">Features</h2>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="text-center">
-                        <i class="fas fa-rocket text-4xl feature-icon mb-4"></i>
-                        <h3 class="text-xl font-bold mb-3">Fast Execution</h3>
-                        <p class="text-gray-300">Lightning-fast script execution with optimized performance</p>
-                    </div>
-                    <div class="text-center">
-                        <i class="fas fa-shield-alt text-4xl feature-icon mb-4"></i>
-                        <h3 class="text-xl font-bold mb-3">Secure & Safe</h3>
-                        <p class="text-gray-300">Built with security in mind, protecting your gaming experience</p>
-                    </div>
-                    <div class="text-center">
-                        <i class="fas fa-sync-alt text-4xl feature-icon mb-4"></i>
-                        <h3 class="text-xl font-bold mb-3">Regular Updates</h3>
-                        <p class="text-gray-300">Consistent updates to maintain compatibility with Roblox</p>
-                    </div>
-                    <div class="text-center">
-                        <i class="fas fa-code text-4xl feature-icon mb-4"></i>
-                        <h3 class="text-xl font-bold mb-3">Advanced Scripting</h3>
-                        <p class="text-gray-300">Support for complex scripts and advanced functionality</p>
-                    </div>
-                    <div class="text-center">
-                        <i class="fas fa-users text-4xl feature-icon mb-4"></i>
-                        <h3 class="text-xl font-bold mb-3">Community Support</h3>
-                        <p class="text-gray-300">Active community and support channels</p>
-                    </div>
-                    <div class="text-center">
-                        <i class="fas fa-mobile-alt text-4xl feature-icon mb-4"></i>
-                        <h3 class="text-xl font-bold mb-3">Cross-Platform</h3>
-                        <p class="text-gray-300">Works seamlessly across different platforms</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Pricing Tab -->
-    <div id="pricing" class="tab-content">
-        <section class="py-16">
-            <div class="container mx-auto px-4">
-                <h2 class="text-4xl font-bold text-center mb-12">Choose Your Plan</h2>
-                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    
-                    <!-- Free Plan -->
-                    <div class="pricing-card bg-gray-800 p-8 rounded-lg">
-                        <div class="text-center">
-                            <h3 class="text-2xl font-bold mb-4">Free</h3>
-                            <div class="text-4xl font-bold mb-6">$0<span class="text-lg text-gray-400">/month</span></div>
-                            <ul class="space-y-3 mb-8 text-left">
-                                <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Basic execution engine</li>
-                                <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Community scripts</li>
-                                <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Standard updates</li>
-                                <li class="flex items-center"><i class="fas fa-check text-green-400 mr-3"></i>Basic support</li>
-                            </ul>
-                            <button onclick="showTab('download')" class="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors">
-                                Download Free
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Premium Plan -->
-                    <div class="pricing-card bg-gradient-to-br from-purple-600 to-pink-600 p-8 rounded-lg transform scale-105">
-                        <div class="text-center">
-                            <div class="bg-yellow-400 text-black px-3 py-1 rounded-full text-sm font-bold mb-4 inline-block">
-                                MOST POPULAR
-                            </div>
-                            <h3 class="text-2xl font-bold mb-4">Premium</h3>
-                            <div class="text-4xl font-bold mb-6">$9.99<span class="text-lg text-gray-200">/month</span></div>
-                            <ul class="space-y-3 mb-8 text-left">
-                                <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Advanced execution engine</li>
-                                <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Exclusive premium scripts</li>
-                                <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Priority updates</li>
-                                <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Premium support</li>
-                                <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Enhanced security</li>
-                                <li class="flex items-center"><i class="fas fa-check text-yellow-300 mr-3"></i>Faster execution</li>
-                            </ul>
-                            <button class="w-full bg-white text-purple-600 py-3 rounded-lg hover:bg-gray-100 transition-colors font-bold">
-                                Get Premium
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Lifetime Plan -->
-                    <div class="pricing-card bg-gray-800 p-8 rounded-lg">
-                        <div class="text-center">
-                            <h3 class="text-2xl font-bold mb-4">Lifetime</h3>
-                            <div class="text-4xl font-bold mb-6">$49.99<span class="text-lg text-gray-400">/once</span></div>
-                            <ul class="space-y-3 mb-8 text-left">
-                                <li class="flex items-center"><i class="fas fa-check text-gold mr-3"></i>All Premium features</li>
-                                <li class="flex items-center"><i class="fas fa-check text-gold mr-3"></i>Lifetime access</li>
-                                <li class="flex items-center"><i class="fas fa-check text-gold mr-3"></i>Exclusive beta features</li>
-                                <li class="flex items-center"><i class="fas fa-check text-gold mr-3"></i>VIP support</li>
-                                <li class="flex items-center"><i class="fas fa-check text-gold mr-3"></i>Special recognition</li>
-                            </ul>
-                            <button class="w-full bg-yellow-500 text-black py-3 rounded-lg hover:bg-yellow-600 transition-colors font-bold">
-                                Buy Lifetime
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Download Tab -->
-    <div id="download" class="tab-content">
-        <section class="py-16">
-            <div class="container mx-auto px-4">
-                <h2 class="text-4xl font-bold text-center mb-12">Download Soul</h2>
-                
-                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <!-- Free Download -->
-                    <div class="bg-gray-800 p-8 rounded-lg text-center">
-                        <h3 class="text-2xl font-bold mb-4">
-                            <i class="fas fa-download mr-2"></i>Free Version
-                        </h3>
-                        <p class="text-gray-300 mb-6">Get started with our free executor - no registration required!</p>
-                        <div class="space-y-4">
-                            <button class="w-full bg-green-600 text-white py-4 rounded-lg text-lg font-bold hover:bg-green-700 transition-colors">
-                                <i class="fas fa-download mr-2"></i>Download Free Soul
-                            </button>
-                            <p class="text-sm text-gray-400">Version 2.1.0 | Windows 10/11</p>
-                        </div>
-                    </div>
-
-                    <!-- Premium Download -->
-                    <div class="bg-gradient-to-br from-purple-600 to-pink-600 p-8 rounded-lg text-center">
-                        <h3 class="text-2xl font-bold mb-4">
-                            <i class="fas fa-crown mr-2"></i>Premium Version
-                        </h3>
-                        <p class="text-gray-100 mb-6">Access exclusive features and priority support!</p>
-                        <div class="space-y-4">
-                            <button class="w-full bg-white text-purple-600 py-4 rounded-lg text-lg font-bold hover:bg-gray-100 transition-colors">
-                                <i class="fas fa-crown mr-2"></i>Get Premium Access
-                            </button>
-                            <p class="text-sm text-gray-200">Requires premium subscription | All platforms</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Installation Instructions -->
-                <div class="mt-12 bg-gray-800 p-8 rounded-lg max-w-4xl mx-auto">
-                    <h3 class="text-2xl font-bold mb-6 text-center">Installation Instructions</h3>
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <h4 class="text-lg font-bold mb-3">For Free Version:</h4>
-                            <ol class="space-y-2 text-gray-300">
-                                <li>1. Download the free Soul executor</li>
-                                <li>2. Extract the ZIP file to your desktop</li>
-                                <li>3. Run as administrator</li>
-                                <li>4. Attach to Roblox and start scripting</li>
-                            </ol>
-                        </div>
-                        <div>
-                            <h4 class="text-lg font-bold mb-3">For Premium Version:</h4>
-                            <ol class="space-y-2 text-gray-300">
-                                <li>1. Purchase premium subscription</li>
-                                <li>2. Download premium installer</li>
-                                <li>3. Login with your premium account</li>
-                                <li>4. Enjoy exclusive features</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- FAQ Tab -->
-    <div id="faq" class="tab-content">
-        <section class="py-16">
-            <div class="container mx-auto px-4">
-                <h2 class="text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-                <div class="max-w-3xl mx-auto space-y-6">
-                    
-                    <div class="bg-gray-800 p-6 rounded-lg">
-                        <h3 class="text-xl font-bold mb-3">Is Soul Safe?</h3>
-                        <p class="text-gray-300">Yes, Soul is safe to use. Both free and premium versions are regularly scanned and updated for security. Make sure to download from our official website only.</p>
-                    </div>
-
-                    <div class="bg-gray-800 p-6 rounded-lg">
-                        <h3 class="text-xl font-bold mb-3">Can I get banned using Soul?</h3>
-                        <p class="text-gray-300">There's always a risk when using third-party software with Roblox. However, our advanced anti-detection systems significantly reduce this risk, especially in the premium version.</p>
-                    </div>
-
-                    <div class="bg-gray-800 p-6 rounded-lg">
-                        <h3 class="text-xl font-bold mb-3">What's the difference between Free and Premium?</h3>
-                        <p class="text-gray-300">Premium offers advanced execution engines, exclusive scripts, priority support, enhanced security features, and faster performance compared to the free version.</p>
-                    </div>
-
-                    <div class="bg-gray-800 p-6 rounded-lg">
-                        <h3 class="text-xl font-bold mb-3">How often does Soul update?</h3>
-                        <p class="text-gray-300">Free version updates within 24-48 hours of Roblox updates. Premium users get priority updates, usually within 12-24 hours, ensuring minimal downtime.</p>
-                    </div>
-
-                    <div class="bg-gray-800 p-6 rounded-lg">
-                        <h3 class="text-xl font-bold mb-3">Can I upgrade from Free to Premium?</h3>
-                        <p class="text-gray-300">Absolutely! You can upgrade to Premium at any time. Your existing scripts and settings will be preserved during the upgrade process.</p>
-                    </div>
-
-                    <div class="bg-gray-800 p-6 rounded-lg">
-                        <h3 class="text-xl font-bold mb-3">Do you offer refunds?</h3>
-                        <p class="text-gray-300">Fuck No</p>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 py-8 border-t border-gray-700">
+    <!-- Navigation Tabs -->
+    <nav class="bg-gray-800 border-b border-gray-700">
         <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Soul</h3>
-                    <p class="text-gray-400">The ultimate Roblox executor for enhanced gaming experience.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><button onclick="showTab('home')" class="hover:text-white">Home</button></li>
-                        <li><button onclick="showTab('features')" class="hover:text-white">Features</button></li>
-                        <li><button onclick="showTab('pricing')" class="hover:text-white">Pricing</button></li>
-                        <li><button onclick="showTab('download')" class="hover:text-white">Download</button></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4">Support</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><button onclick="showTab('faq')" class="hover:text-white">FAQ</button></li>
-                        <li><a href="#" class="hover:text-white">Help Center</a></li>
-                        <li><a href="#" class="hover:text-white">Contact Us</a></li>
-                        <li><a href="#" class="hover:text-white">Discord</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4">Legal</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-white">DMCA</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2024 Soul Executor. All rights reserved.</p>
+            <div class="flex space-x-8">
+                <button class="tab-btn active py-4 px-6 text-blue-400 border-b-2 border-blue-400 font-medium" data-tab="feed">
+                    <i class="fas fa-home mr-2"></i>Feed
+                </button>
+                <button class="tab-btn py-4 px-6 text-gray-400 hover:text-white font-medium" data-tab="games">
+                    <i class="fas fa-gamepad mr-2"></i>Games
+                </button>
+                <button class="tab-btn py-4 px-6 text-gray-400 hover:text-white font-medium" data-tab="chat">
+                    <i class="fas fa-comments mr-2"></i>Live Chat
+                </button>
+                <button class="tab-btn py-4 px-6 text-gray-400 hover:text-white font-medium" data-tab="creator">
+                    <i class="fas fa-paint-brush mr-2"></i>Creator Hub
+                </button>
+                <button class="tab-btn py-4 px-6 text-gray-400 hover:text-white font-medium" data-tab="stats">
+                    <i class="fas fa-chart-bar mr-2"></i>Stats
+                </button>
             </div>
         </div>
-    </footer>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Feed Tab -->
+        <div id="feed" class="tab-content active">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Feed -->
+                <div class="lg:col-span-2">
+                    <div class="bg-gray-800 rounded-lg p-6 mb-6">
+                        <h2 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-fire mr-2 text-orange-500"></i>
+                            What's Happening Right Now
+                        </h2>
+                        <div id="liveFeed" class="space-y-4">
+                            <!-- Live feed items will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="space-y-6">
+                    <!-- Online Users -->
+                    <div class="bg-gray-800 rounded-lg p-6">
+                        <h3 class="text-lg font-bold mb-4 flex items-center">
+                            <i class="fas fa-users mr-2 text-green-500"></i>
+                            Online Now (<span id="onlineCount">1,247</span>)
+                        </h3>
+                        <div id="onlineUsers" class="space-y-2">
+                            <!-- Online users will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="bg-gray-800 rounded-lg p-6">
+                        <h3 class="text-lg font-bold mb-4">Quick Stats</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span>Active Games</span>
+                                <span id="activeGames" class="text-blue-400 font-bold">2,341</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Players Online</span>
+                                <span id="playersOnline" class="text-green-400 font-bold">15,678</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Rooms Created Today</span>
+                                <span id="roomsToday" class="text-purple-400 font-bold">892</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Games Tab -->
+        <div id="games" class="tab-content">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold mb-4">Featured Games</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Game cards will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Tab -->
+        <div id="chat" class="tab-content">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <div class="lg:col-span-3">
+                    <div class="bg-gray-800 rounded-lg h-96 flex flex-col">
+                        <div class="p-4 border-b border-gray-700">
+                            <h3 class="text-lg font-bold flex items-center">
+                                <i class="fas fa-comments mr-2 text-blue-500"></i>
+                                Global Chat
+                                <span class="ml-2 bg-green-500 text-xs px-2 py-1 rounded-full">LIVE</span>
+                            </h3>
+                        </div>
+                        <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-2">
+                            <!-- Chat messages will be populated here -->
+                        </div>
+                        <div class="p-4 border-t border-gray-700">
+                            <div class="flex space-x-2">
+                                <input type="text" id="chatInput" placeholder="Type your message..." class="flex-1 bg-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <button id="sendBtn" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <h4 class="font-bold mb-4">Chat Rooms</h4>
+                    <div class="space-y-2">
+                        <div class="p-2 bg-gray-700 rounded cursor-pointer hover:bg-gray-600"># General</div>
+                        <div class="p-2 bg-gray-700 rounded cursor-pointer hover:bg-gray-600"># Game Dev</div>
+                        <div class="p-2 bg-gray-700 rounded cursor-pointer hover:bg-gray-600"># Off Topic</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Creator Hub Tab -->
+        <div id="creator" class="tab-content">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-4">Creator Hub</h2>
+                <p class="text-gray-400 text-lg">Build, share, and monetize your gaming creations</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-gray-800 rounded-lg p-6 text-center">
+                    <i class="fas fa-plus-circle text-4xl text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Create New Game</h3>
+                    <p class="text-gray-400 mb-4">Start building your next masterpiece</p>
+                    <button class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg">Get Started</button>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center">
+                    <i class="fas fa-upload text-4xl text-green-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Upload Assets</h3>
+                    <p class="text-gray-400 mb-4">Share your models, textures, and sounds</p>
+                    <button class="bg-green-600 hover:bg-green-700 px-6 py-2 rounded-lg">Upload Now</button>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-6 text-center">
+                    <i class="fas fa-dollar-sign text-4xl text-yellow-500 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Monetize</h3>
+                    <p class="text-gray-400 mb-4">Earn from your creative work</p>
+                    <button class="bg-yellow-600 hover:bg-yellow-700 px-6 py-2 rounded-lg">Learn More</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Tab -->
+        <div id="stats" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="stats-card rounded-lg p-6 text-center text-white">
+                    <i class="fas fa-users text-3xl mb-2"></i>
+                    <h3 class="text-2xl font-bold" id="totalUsers">2</h3>
+                    <p>Total Users</p>
+                </div>
+                <div class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg p-6 text-center text-white">
+                    <i class="fas fa-gamepad text-3xl mb-2"></i>
+                    <h3 class="text-2xl font-bold" id="totalGames">45K</h3>
+                    <p>Scripts Created</p>
+                </div>
+                <div class="bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg p-6 text-center text-white">
+                    <i class="fas fa-clock text-3xl mb-2"></i>
+                    <h3 class="text-2xl font-bold" id="hoursPlayed">1.2M</h3>
+                    <p>Hours Played</p>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg p-6 text-center text-white">
+                    <i class="fas fa-trophy text-3xl mb-2"></i>
+                    <h3 class="text-2xl font-bold" id="achievements">890K</h3>
+                    <p>Achievements</p>
+                </div>
+            </div>
+            <div class="bg-gray-800 rounded-lg p-6">
+                <h3 class="text-xl font-bold mb-4">Platform Activity</h3>
+                <canvas id="activityChart" style="height: 400px;"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <!-- Notification Panel -->
+    <div id="notificationPanel" class="fixed top-16 right-4 w-80 bg-gray-800 rounded-lg shadow-xl z-50 hidden">
+        <div class="p-4 border-b border-gray-700">
+            <h3 class="font-bold">Notifications</h3>
+        </div>
+        <div id="notificationList" class="p-4 space-y-3 max-h-64 overflow-y-auto">
+            <!-- Notifications will be populated here -->
+        </div>
+    </div>
 
     <script>
-        function showTab(tabId) {
-            // Hide all tab contents
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(content => {
-                content.classList.remove('active');
+        // Global variables
+        let currentUser = 'GamerPro';
+        let onlineUsers = ['Player1', 'GameMaster', 'ProGamer', 'DevCreator', 'PixelArt', 'SpeedRunner'];
+        let feedItems = [];
+        let chatMessages = [];
+        let notifications = [];
+
+        // Tab functionality
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetTab = this.dataset.tab;
+                
+                // Update active tab button
+                document.querySelectorAll('.tab-btn').forEach(b => {
+                    b.classList.remove('active', 'text-blue-400', 'border-blue-400');
+                    b.classList.add('text-gray-400');
+                });
+                this.classList.add('active', 'text-blue-400', 'border-blue-400');
+                this.classList.remove('text-gray-400');
+                
+                // Show active tab content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(targetTab).classList.add('active');
+                
+                // Initialize tab-specific content
+                if (targetTab === 'stats') {
+                    initializeChart();
+                } else if (targetTab === 'games') {
+                    populateGames();
+                }
             });
+        });
 
-            // Remove active class from all tab buttons
-            const tabButtons = document.querySelectorAll('.tab-button');
-            tabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
+        // Discord integration
+        document.getElementById('discordBtn').addEventListener('click', function() {
+            window.open('https://discord.gg/XezCtmMRn4', '_blank');
+            addNotification('Discord invite copied to clipboard!', 'success');
+        });
 
-            // Show selected tab content
-            document.getElementById(tabId).classList.add('active');
+        // Chat functionality
+        document.getElementById('sendBtn').addEventListener('click', sendMessage);
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
 
-            // Add active class to clicked button
-            event.target.classList.add('active');
-
-            // Close mobile menu if open
-            document.getElementById('mobileMenu').classList.add('hidden');
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (message) {
+                addChatMessage(currentUser, message, true);
+                input.value = '';
+                
+                // Simulate responses
+                setTimeout(() => {
+                    const responses = [
+                        'Nice scrip!', 'Anyone want to hack?', 'Just finished my script!',
+                        'Looking for beta testers!', 'Great work on that build!', 'Anyone know how to fix this bug?'
+                    ];
+                    const randomUser = onlineUsers[Math.floor(Math.random() * onlineUsers.length)];
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addChatMessage(randomUser, randomResponse);
+                }, Math.random() * 3000 + 1000);
+            }
         }
 
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('hidden');
-        }
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const mobileMenu = document.getElementById('mobileMenu');
-            const menuButton = event.target.closest('button');
+        function addChatMessage(username, message, isCurrentUser = false) {
+            const chatContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message p-2 rounded ${isCurrentUser ? 'bg-blue-600 ml-8' : 'bg-gray-700'}`;
+            messageDiv.innerHTML = `
+                <div class="flex items-center space-x-2 mb-1">
+                    <span class="font-bold text-sm">${username}</span>
+                    <span class="text-xs text-gray-400">${new Date().toLocaleTimeString()}</span>
+                </div>
+                <div>${message}</div>
+            `;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
             
-            if (!menuButton || menuButton.onclick !== toggleMobileMenu) {
-                mobileMenu.classList.add('hidden');
+            chatMessages.push({username, message, timestamp: Date.now()});
+        }
+
+        // Notifications
+        document.getElementById('notificationBtn').addEventListener('click', function() {
+            const panel = document.getElementById('notificationPanel');
+            panel.classList.toggle('hidden');
+            if (!panel.classList.contains('hidden')) {
+                populateNotifications();
+            }
+        });
+
+        function addNotification(message, type = 'info') {
+            notifications.unshift({
+                message,
+                type,
+                timestamp: Date.now()
+            });
+            
+            const countElement = document.getElementById('notificationCount');
+            countElement.textContent = notifications.length;
+            
+            // Show notification toast
+            const toast = document.createElement('div');
+            toast.className = `notification fixed top-20 right-4 px-4 py-2 rounded-lg text-white z-50 ${
+                type === 'success' ? 'bg-green-600' : 
+                type === 'error' ? 'bg-red-600' : 'bg-blue-600'
+            }`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        function populateNotifications() {
+            const container = document.getElementById('notificationList');
+            container.innerHTML = notifications.map(notif => `
+                <div class="p-2 bg-gray-700 rounded">
+                    <div class="text-sm">${notif.message}</div>
+                    <div class="text-xs text-gray-400">${new Date(notif.timestamp).toLocaleTimeString()}</div>
+                </div>
+            `).join('');
+        }
+
+        // Live feed
+        function populateFeed() {
+            const feedContainer = document.getElementById('liveFeed');
+            const samplePosts = [
+                {
+                    user: 'DevCreator',
+                    content: 'Just released the Deadrais scrip! An original character illustrated by my friend @catbyg',
+                    timestamp: Date.now() - 300000,
+                    likes: 42,
+                    comments: 8,
+                    image: true
+                },
+                {
+                    user: 'GameMaster',
+                    content: 'TSB Releases Soon! Beta testing starts next week. Who wants early access?',
+                    timestamp: Date.now() - 600000,
+                    likes: 156,
+                    comments: 23
+                },
+                {
+                    user: 'PixelArt',
+                    content: 'Shiny Hubert signed by me. 24 hours to buy it - limited edition!',
+                    timestamp: Date.now() - 900000,
+                    likes: 89,
+                    comments: 15,
+                    image: true
+                }
+            ];
+            
+            feedContainer.innerHTML = samplePosts.map(post => `
+                <div class="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <img src="https://via.placeholder.com/40x40/4facfe/ffffff?text=${post.user[0]}" alt="${post.user}" class="w-10 h-10 rounded-full">
+                        <div>
+                            <div class="font-bold">${post.user}</div>
+                            <div class="text-sm text-gray-400">${new Date(post.timestamp).toLocaleTimeString()}</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">${post.content}</div>
+                    ${post.image ? '<div class="bg-gray-600 h-32 rounded mb-3 flex items-center justify-center"><i class="fas fa-image text-2xl text-gray-400"></i></div>' : ''}
+                    <div class="flex items-center space-x-4 text-sm text-gray-400">
+                        <button class="flex items-center space-x-1 hover:text-red-400">
+                            <i class="fas fa-heart"></i>
+                            <span>${post.likes}</span>
+                        </button>
+                        <button class="flex items-center space-x-1 hover:text-blue-400">
+                            <i class="fas fa-comment"></i>
+                            <span>${post.comments}</span>
+                        </button>
+                        <button class="flex items-center space-x-1 hover:text-green-400">
+                            <i class="fas fa-share"></i>
+                            <span>Share</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Online users
+        function populateOnlineUsers() {
+            const container = document.getElementById('onlineUsers');
+            container.innerHTML = onlineUsers.slice(0, 5).map(user => `
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span class="text-sm">${user}</span>
+                </div>
+            `).join('');
+        }
+
+        // Games
+        function populateGames() {
+            const gamesContainer = document.querySelector('#games .grid');
+            const sampleGames = [
+                {
+                    title: 'Space Adventure VR',
+                    creator: 'DevCreator',
+                    players: 1247,
+                    rating: 4.8,
+                    category: 'Adventure'
+                },
+                {
+                    title: 'Pixel Platformer',
+                    creator: 'PixelArt',
+                    players: 892,
+                    rating: 4.6,
+                    category: 'Platformer'
+                },
+                {
+                    title: 'DeadRais',
+                    creator: 'Soul',
+                    players: 2,
+                    rating: 1.0,
+                    category: 'scrip'
+                }
+            ];
+            
+            gamesContainer.innerHTML = sampleGames.map(game => `
+                <div class="game-card bg-gray-800 rounded-lg overflow-hidden">
+                    <div class="h-48 bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center">
+                        <i class="fas fa-gamepad text-4xl text-white"></i>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2">${game.title}</h3>
+                        <p class="text-gray-400 text-sm mb-2">by ${game.creator}</p>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm text-gray-400">${game.players} playing</span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <span class="text-sm">${game.rating}</span>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="flex-1 bg-blue-600 hover:bg-blue-700 py-2 rounded text-sm font-medium">
+                                <i class="fas fa-play mr-2"></i>Play
+                            </button>
+                            <button class="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Chart initialization
+        function initializeChart() {
+            const ctx = document.getElementById('activityChart');
+            if (ctx && !ctx.chart) {
+                ctx.chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Active Users',
+                            data: [12000, 15000, 18000, 14000, 22000, 25000, 28000],
+                            borderColor: '#3B82F6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.4
+                        }, {
+                            label: 'Games Created',
+                            data: [120, 150, 180, 140, 220, 250, 280],
+                            borderColor: '#10B981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#fff'
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                ticks: { color: '#fff' },
+                                grid: { color: '#374151' }
+                            },
+                            y: {
+                                ticks: { color: '#fff' },
+                                grid: { color: '#374151' }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Real-time updates
+        function updateStats() {
+            const stats = {
+                onlineCount: Math.floor(Math.random() * 100) + 1200,
+                activeGames: Math.floor(Math.random() * 100) + 2300,
+                playersOnline: Math.floor(Math.random() * 1000) + 15000,
+                roomsToday: Math.floor(Math.random() * 50) + 850
+            };
+            
+            Object.keys(stats).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = stats[key].toLocaleString();
+                }
+            });
+        }
+
+        // Auto-generate content
+        function generateRandomActivity() {
+            const activities = [
+                'New Scrip "Dead Rails" just came out!',
+                'Player "DiscoBarn" just set a new hacking record!',
+                'Weekly tournament starting in 10 minutes!',
+                'Featured creator spotlight: Check out @Soulwhoareyou latest creation!',
+                'System update: New physics engine deployed!'
+            ];
+            
+            const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+            addNotification(randomActivity, 'info');
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            populateFeed();
+            populateOnlineUsers();
+            populateGames();
+            
+            // Add some initial notifications
+            addNotification('Welcome to SoulSite! 🎮', 'success');
+            addNotification('Check out the new featured games!', 'info');
+            addNotification('Your friend Soul is now online', 'info');
+            
+            // Add some initial chat messages
+            setTimeout(() => {
+                addChatMessage('GameMaster', 'Welcome everyone to the global chat!');
+                setTimeout(() => {
+                    addChatMessage('DevCreator', 'Excited to share my new game with you all!');
+                }, 2000);
+                setTimeout(() => {
+                    addChatMessage('PixelArt', 'Anyone want to collaborate on a pixel art project?');
+                }, 4000);
+            }, 1000);
+            
+            // Start real-time updates
+            setInterval(updateStats, 5000);
+            setInterval(generateRandomActivity, 30000);
+            
+            // Simulate live user activity
+            setInterval(() => {
+                const randomUser = onlineUsers[Math.floor(Math.random() * onlineUsers.length)];
+                const activities = [
+                    `${randomUser} joined a new game`,
+                    `${randomUser} created a new room`,
+                    `${randomUser} shared a screenshot`,
+                    `${randomUser} started streaming`
+                ];
+                const activity = activities[Math.floor(Math.random() * activities.length)];
+                
+                // Add to live feed occasionally
+                if (Math.random() > 0.7) {
+                    const feedContainer = document.getElementById('liveFeed');
+                    const newPost = document.createElement('div');
+                    newPost.className = 'bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors chat-message';
+                    newPost.innerHTML = `
+                        <div class="flex items-center space-x-3 mb-3">
+                            <img src="https://via.placeholder.com/40x40/4facfe/ffffff?text=${randomUser[0]}" alt="${randomUser}" class="w-10 h-10 rounded-full">
+                            <div>
+                                <div class="font-bold">${randomUser}</div>
+                                <div class="text-sm text-gray-400">just now</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">${activity}</div>
+                        <div class="flex items-center space-x-4 text-sm text-gray-400">
+                            <button class="flex items-center space-x-1 hover:text-red-400">
+                                <i class="fas fa-heart"></i>
+                                <span>0</span>
+                            </button>
+                            <button class="flex items-center space-x-1 hover:text-blue-400">
+                                <i class="fas fa-comment"></i>
+                                <span>0</span>
+                            </button>
+                        </div>
+                    `;
+                    feedContainer.insertBefore(newPost, feedContainer.firstChild);
+                    
+                    // Keep only last 10 posts
+                    while (feedContainer.children.length > 10) {
+                        feedContainer.removeChild(feedContainer.lastChild);
+                    }
+                }
+            }, 10000);
+        });
+
+        // Close notification panel when clicking outside
+        document.addEventListener('click', function(e) {
+            const panel = document.getElementById('notificationPanel');
+            const btn = document.getElementById('notificationBtn');
+            if (!panel.contains(e.target) && !btn.contains(e.target)) {
+                panel.classList.add('hidden');
             }
         });
     </script>
-
 </body>
 </html>
