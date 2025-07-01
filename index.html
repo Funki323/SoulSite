@@ -3,698 +3,1015 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soul Scripts - scripts build Discobarn</title>
+    <title>Soul - Complete Executor Website</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .gradient-bg {
+        body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .game-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 3s ease-in-out infinite;
         }
-        .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.5; }
         }
-        .chat-message {
-            animation: slideIn 0.3s ease-out;
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        @keyframes slideIn {
+        
+        .glow {
+            box-shadow: 0 0 20px rgba(139, 69, 19, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .glow:hover {
+            box-shadow: 0 0 30px rgba(139, 69, 19, 0.8);
+            transform: translateY(-2px);
+        }
+        
+        .premium-glow {
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        
+        .premium-glow:hover {
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .pulse-dot {
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        .notification {
-            animation: slideInRight 0.3s ease-out;
-        }
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(100%); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        .discord-btn {
-            background: #5865F2;
+        
+        .nav-item {
             transition: all 0.3s ease;
+            cursor: pointer;
         }
-        .discord-btn:hover {
-            background: #4752C4;
-            transform: scale(1.05);
+        
+        .nav-item:hover {
+            transform: translateY(-2px);
+            color: #ffd700;
         }
-        .tab-content {
-            display: none;
+        
+        .nav-item.active {
+            color: #ffd700;
+            border-bottom: 2px solid #ffd700;
         }
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.3s ease-in;
+        
+        .download-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
         }
-        .stats-card {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .download-btn:hover::before {
+            left: 100%;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
-    <!-- Header -->
-    <header class="gradient-bg shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3">
-            <div class="flex items-center justify-between">
+<body>
+    <!-- Particle Container -->
+    <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
+    
+    <!-- Main Container -->
+    <div class="relative z-10 min-h-screen">
+        <!-- Header -->
+        <header class="glass p-6 mb-8">
+            <div class="container mx-auto flex justify-between items-center">
                 <div class="flex items-center space-x-4">
-                    <i class="fas fa-gamepad text-3xl text-white"></i>
-                    <h1 class="text-2xl font-bold text-white">GameHub</h1>
-                    <span class="bg-green-500 text-xs px-2 py-1 rounded-full pulse-dot">LIVE</span>
+                    <h1 class="text-3xl font-bold text-white">
+                        <i class="fas fa-code text-yellow-400 mr-2"></i>Soul
+                    </h1>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <button id="discordBtn" class="discord-btn px-4 py-2 rounded-lg text-white font-medium flex items-center space-x-2">
-                        <i class="fab fa-discord"></i>
-                        <span>Join Discord</span>
-                    </button>
-                    <div class="relative">
-                        <button id="notificationBtn" class="relative p-2 rounded-full bg-gray-700 hover:bg-gray-600">
-                            <i class="fas fa-bell text-xl"></i>
-                            <span id="notificationCount" class="absolute -top-1 -right-1 bg-red-500 text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-6">
+                    <span class="nav-item active text-white px-3 py-2" onclick="showTab('home')">
+                        <i class="fas fa-home mr-1"></i>Home
+                    </span>
+                    <span class="nav-item text-white px-3 py-2" onclick="showTab('help')">
+                        <i class="fas fa-question-circle mr-1"></i>Help & Tutorial
+                    </span>
+                    <span class="nav-item text-white px-3 py-2" onclick="showTab('premium')">
+                        <i class="fas fa-crown mr-1"></i>Premium Plans
+                    </span>
+                    <span class="nav-item text-white px-3 py-2" onclick="showTab('contact')">
+                        <i class="fas fa-envelope mr-1"></i>Contact
+                    </span>
+                    <span class="nav-item text-white px-3 py-2" onclick="showTab('credits')">
+                        <i class="fas fa-users mr-1"></i>Credits
+                    </span>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="md:hidden mt-4 space-y-2 hidden">
+                <div class="nav-item text-white px-3 py-2 block" onclick="showTab('home')">
+                    <i class="fas fa-home mr-1"></i>Home
+                </div>
+                <div class="nav-item text-white px-3 py-2 block" onclick="showTab('help')">
+                    <i class="fas fa-question-circle mr-1"></i>Help & Tutorial
+                </div>
+                <div class="nav-item text-white px-3 py-2 block" onclick="showTab('premium')">
+                    <i class="fas fa-crown mr-1"></i>Premium Plans
+                </div>
+                <div class="nav-item text-white px-3 py-2 block" onclick="showTab('contact')">
+                    <i class="fas fa-envelope mr-1"></i>Contact
+                </div>
+                <div class="nav-item text-white px-3 py-2 block" onclick="showTab('credits')">
+                    <i class="fas fa-users mr-1"></i>Credits
+                </div>
+            </div>
+        </header>
+
+        <div class="container mx-auto px-4">
+            <!-- Home Tab -->
+            <div id="home" class="tab-content active">
+                <!-- Hero Section -->
+                <section class="text-center mb-12">
+                    <h2 class="text-5xl font-bold text-white mb-4">
+                        Soul Executor
+                    </h2>
+                    <p class="text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
+                        A free, keyless external executor for Roblox to optimize your gaming experience with advanced script execution capabilities.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button class="download-btn text-white px-8 py-4 rounded-lg font-semibold text-lg glow" onclick="downloadFree()">
+                            <i class="fas fa-download mr-2"></i>Download Free
+                        </button>
+                        <button class="premium-glow bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-8 py-4 rounded-lg font-semibold text-lg" onclick="showTab('premium')">
+                            <i class="fas fa-crown mr-2"></i>Get Premium
                         </button>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <img src="https://via.placeholder.com/40x40/4facfe/ffffff?text=U" alt="User" class="w-10 h-10 rounded-full">
-                        <span class="font-medium">GamerPro</span>
+                </section>
+
+                <!-- Features Grid -->
+                <section class="grid md:grid-cols-3 gap-6 mb-12">
+                    <div class="glass p-6 rounded-lg text-center">
+                        <i class="fas fa-shield-alt text-4xl text-green-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-white mb-2">Safe & Secure</h3>
+                        <p class="text-gray-300">No protection on core components, fully transparent and safe to use.</p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </header>
+                    
+                    <div class="glass p-6 rounded-lg text-center">
+                        <i class="fas fa-sync-alt text-4xl text-blue-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-white mb-2">Regular Updates</h3>
+                        <p class="text-gray-300">Updated within 24 hours of Roblox updates to ensure compatibility.</p>
+                    </div>
+                    
+                    <div class="glass p-6 rounded-lg text-center">
+                        <i class="fas fa-key text-4xl text-purple-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-white mb-2">Keyless</h3>
+                        <p class="text-gray-300">No keys required - instant access to all free features.</p>
+                    </div>
+                </section>
 
-    <!-- Navigation Tabs -->
-    <nav class="bg-gray-800 border-b border-gray-700">
-        <div class="container mx-auto px-4">
-            <div class="flex space-x-8">
-                <button class="tab-btn active py-4 px-6 text-blue-400 border-b-2 border-blue-400 font-medium" data-tab="feed">
-                    <i class="fas fa-home mr-2"></i>Feed
-                </button>
-                <button class="tab-btn py-4 px-6 text-gray-400 hover:text-white font-medium" data-tab="games">
-                    <i class="fas fa-gamepad mr-2"></i>Games
-                </button>
-                <button class="tab-btn py-4 px-6 text-gray-400 hover:text-white font-medium" data-tab="chat">
-                    <i class="fas fa-comments mr-2"></i>Live Chat
-                </button>
-                <button class="tab-btn py-4 px-6 text-gray-400 hover:text-white font-medium" data-tab="creator">
-                    <i class="fas fa-paint-brush mr-2"></i>Creator Hub
-                </button>
-                <button class="tab-btn py-4 px-6 text-gray-400 hover:text-white font-medium" data-tab="stats">
-                    <i class="fas fa-chart-bar mr-2"></i>Stats
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
-        <!-- Feed Tab -->
-        <div id="feed" class="tab-content active">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Main Feed -->
-                <div class="lg:col-span-2">
-                    <div class="bg-gray-800 rounded-lg p-6 mb-6">
-                        <h2 class="text-xl font-bold mb-4 flex items-center">
-                            <i class="fas fa-fire mr-2 text-orange-500"></i>
-                            What's Happening Right Now
-                        </h2>
-                        <div id="liveFeed" class="space-y-4">
-                            <!-- Live feed items will be populated here -->
+                <!-- FAQ Section -->
+                <section class="glass p-8 rounded-lg">
+                    <h3 class="text-2xl font-bold text-white mb-6 text-center">
+                        <i class="fas fa-question-circle mr-2"></i>Frequently Asked Questions
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="border-b border-gray-600 pb-4">
+                            <h4 class="text-lg font-semibold text-white mb-2">Is Soul Safe?</h4>
+                            <p class="text-gray-300">Yes, Soul is safe to use. It is a legit utility software without any protection to its core components so you could reverse it yourself and see how Soul works! Make sure that you are getting Soul from the official website.</p>
+                        </div>
+                        
+                        <div class="border-b border-gray-600 pb-4">
+                            <h4 class="text-lg font-semibold text-white mb-2">Can I get banned with Soul?</h4>
+                            <p class="text-gray-300">It is possible to get banned from using Soul because Soul is a utility software for Roblox but the chances are slim.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-semibold text-white mb-2">How often does Soul update?</h4>
+                            <p class="text-gray-300">Soul gets regular updates, usually within 24 hours prior to a Roblox update, to keep everything running smoothly and stay compatible with the latest changes.</p>
                         </div>
                     </div>
-                </div>
-
-                <!-- Sidebar -->
-                <div class="space-y-6">
-                    <!-- Online Users -->
-                    <div class="bg-gray-800 rounded-lg p-6">
-                        <h3 class="text-lg font-bold mb-4 flex items-center">
-                            <i class="fas fa-users mr-2 text-green-500"></i>
-                            Online Now (<span id="onlineCount">1,247</span>)
-                        </h3>
-                        <div id="onlineUsers" class="space-y-2">
-                            <!-- Online users will be populated here -->
-                        </div>
-                    </div>
-
-                    <!-- Quick Stats -->
-                    <div class="bg-gray-800 rounded-lg p-6">
-                        <h3 class="text-lg font-bold mb-4">Quick Stats</h3>
-                        <div class="space-y-3">
-                            <div class="flex justify-between">
-                                <span>Active Games</span>
-                                <span id="activeGames" class="text-blue-400 font-bold">2,341</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Players Online</span>
-                                <span id="playersOnline" class="text-green-400 font-bold">15,678</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Rooms Created Today</span>
-                                <span id="roomsToday" class="text-purple-400 font-bold">892</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </section>
             </div>
-        </div>
 
-        <!-- Games Tab -->
-        <div id="games" class="tab-content">
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold mb-4">Featured Games</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Game cards will be populated here -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Chat Tab -->
-        <div id="chat" class="tab-content">
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                <div class="lg:col-span-3">
-                    <div class="bg-gray-800 rounded-lg h-96 flex flex-col">
-                        <div class="p-4 border-b border-gray-700">
-                            <h3 class="text-lg font-bold flex items-center">
-                                <i class="fas fa-comments mr-2 text-blue-500"></i>
-                                Global Chat
-                                <span class="ml-2 bg-green-500 text-xs px-2 py-1 rounded-full">LIVE</span>
+            <!-- Help & Tutorial Tab -->
+            <div id="help" class="tab-content">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-4xl font-bold text-white mb-8 text-center">
+                        <i class="fas fa-book mr-3"></i>Help & Tutorial
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Installation Guide -->
+                        <div class="glass p-6 rounded-lg">
+                            <h3 class="text-2xl font-semibold text-white mb-4">
+                                <i class="fas fa-download mr-2 text-blue-400"></i>Installation Guide
                             </h3>
+                            <ol class="text-gray-300 space-y-3">
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5">1</span>
+                                    Download Soul from the official website
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5">2</span>
+                                    Disable Windows Defender temporarily
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5">3</span>
+                                    Extract the ZIP file to a folder
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5">4</span>
+                                    Run Soul.exe as Administrator
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5">5</span>
+                                    Launch Roblox and join a game
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3 mt-0.5">6</span>
+                                    Click "Inject" in Soul
+                                </li>
+                            </ol>
                         </div>
-                        <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-2">
-                            <!-- Chat messages will be populated here -->
+                        
+                        <!-- How to Use -->
+                        <div class="glass p-6 rounded-lg">
+                            <h3 class="text-2xl font-semibold text-white mb-4">
+                                <i class="fas fa-play mr-2 text-green-400"></i>How to Use
+                            </h3>
+                            <ul class="text-gray-300 space-y-3">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                    Load scripts from the built-in script hub
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                    Paste custom scripts in the editor
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                    Use the file tab to load .lua files
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                    Save frequently used scripts
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-400 mr-3"></i>
+                                    Clear the editor when switching scripts
+                                </li>
+                            </ul>
                         </div>
-                        <div class="p-4 border-t border-gray-700">
-                            <div class="flex space-x-2">
-                                <input type="text" id="chatInput" placeholder="Type your message..." class="flex-1 bg-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <button id="sendBtn" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg">
-                                    <i class="fas fa-paper-plane"></i>
+                    </div>
+                    
+                    <!-- Troubleshooting -->
+                    <div class="glass p-6 rounded-lg mt-8">
+                        <h3 class="text-2xl font-semibold text-white mb-4">
+                            <i class="fas fa-wrench mr-2 text-orange-400"></i>Troubleshooting
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">Common Issues:</h4>
+                                <ul class="text-gray-300 space-y-2">
+                                    <li><strong>Injection Failed:</strong> Make sure Roblox is running and try restarting both applications</li>
+                                    <li><strong>Scripts Not Working:</strong> Check if the script is compatible with the current game</li>
+                                    <li><strong>Antivirus Detection:</strong> Add Soul to your antivirus exclusions</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">Support:</h4>
+                                <ul class="text-gray-300 space-y-2">
+                                    <li>Join our Discord server for help</li>
+                                    <li>Check the FAQ section first</li>
+                                    <li>Report bugs through our contact form</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Video Tutorial Placeholder -->
+                    <div class="glass p-6 rounded-lg mt-8 text-center">
+                        <h3 class="text-2xl font-semibold text-white mb-4">
+                            <i class="fas fa-video mr-2 text-red-400"></i>Video Tutorial
+                        </h3>
+                        <div class="bg-gray-800 rounded-lg p-8">
+                            <i class="fas fa-play-circle text-6xl text-red-400 mb-4"></i>
+                            <p class="text-gray-300">Video tutorial coming soon!</p>
+                            <p class="text-sm text-gray-400 mt-2">Subscribe to our YouTube channel for updates</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Premium Plans Tab -->
+            <div id="premium" class="tab-content">
+                <div class="max-w-6xl mx-auto">
+                    <h2 class="text-4xl font-bold text-white mb-8 text-center">
+                        <i class="fas fa-crown mr-3 text-yellow-400"></i>Premium Plans
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <!-- Free Plan -->
+                        <div class="glass p-6 rounded-lg text-center">
+                            <h3 class="text-2xl font-semibold text-white mb-4">Free</h3>
+                            <div class="text-4xl font-bold text-white mb-6">$0<span class="text-lg text-gray-400">/month</span></div>
+                            
+                            <ul class="text-left text-gray-300 space-y-3 mb-8">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Basic script execution
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Regular updates
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Community support
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Basic script hub
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-times text-red-400 mr-3"></i>Limited features
+                                </li>
+                            </ul>
+                            
+                            <button class="w-full download-btn text-white py-3 rounded-lg font-semibold" onclick="downloadFree()">
+                                Download Free
+                            </button>
+                        </div>
+                        
+                        <!-- Premium Plan -->
+                        <div class="glass p-6 rounded-lg text-center premium-glow border-2 border-yellow-400 relative">
+                            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-semibold">
+                                POPULAR
+                            </div>
+                            <h3 class="text-2xl font-semibold text-white mb-4">Premium</h3>
+                            <div class="text-4xl font-bold text-white mb-6">$9.99<span class="text-lg text-gray-400">/month</span></div>
+                            
+                            <ul class="text-left text-gray-300 space-y-3 mb-8">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Advanced script execution
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Priority updates
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Premium support
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Exclusive script library
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>No advertisements
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Advanced debugging tools
+                                </li>
+                            </ul>
+                            
+                            <button class="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black py-3 rounded-lg font-semibold" onclick="buyPremium('premium')">
+                                Get Premium
+                            </button>
+                        </div>
+                        
+                        <!-- Pro Plan -->
+                        <div class="glass p-6 rounded-lg text-center">
+                            <h3 class="text-2xl font-semibold text-white mb-4">Pro</h3>
+                            <div class="text-4xl font-bold text-white mb-6">$19.99<span class="text-lg text-gray-400">/month</span></div>
+                            
+                            <ul class="text-left text-gray-300 space-y-3 mb-8">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Everything in Premium
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Custom script development
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Private script repository
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>24/7 priority support
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Beta access
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check text-green-400 mr-3"></i>Advanced analytics
+                                </li>
+                            </ul>
+                            
+                            <button class="w-full bg-gradient-to-r from-purple-400 to-pink-500 text-white py-3 rounded-lg font-semibold" onclick="buyPremium('pro')">
+                                Get Pro
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Methods -->
+                    <div class="glass p-6 rounded-lg mt-8 text-center">
+                        <h3 class="text-2xl font-semibold text-white mb-4">
+                            <i class="fas fa-credit-card mr-2"></i>Accepted Payment Methods
+                        </h3>
+                        <div class="flex justify-center space-x-6 text-3xl">
+                            <i class="fab fa-cc-visa text-blue-400"></i>
+                            <i class="fab fa-cc-mastercard text-red-400"></i>
+                            <i class="fab fa-paypal text-blue-600"></i>
+                            <i class="fab fa-bitcoin text-yellow-400"></i>
+                        </div>
+                        <p class="text-gray-300 mt-4">Secure payments powered by Stripe</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Tab -->
+            <div id="contact" class="tab-content">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-4xl font-bold text-white mb-8 text-center">
+                        <i class="fas fa-envelope mr-3"></i>Contact Us
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Contact Form -->
+                        <div class="glass p-6 rounded-lg">
+                            <h3 class="text-2xl font-semibold text-white mb-4">Send us a Message</h3>
+                            <form id="contactForm" class="space-y-4">
+                                <div>
+                                    <label class="block text-gray-300 mb-2">Name</label>
+                                    <input type="text" id="contactName" class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:border-blue-400 focus:outline-none" required>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-gray-300 mb-2">Email</label>
+                                    <input type="email" id="contactEmail" class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:border-blue-400 focus:outline-none" required>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-gray-300 mb-2">Subject</label>
+                                    <select id="contactSubject" class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:border-blue-400 focus:outline-none" required>
+                                        <option value="">Select a subject</option>
+                                        <option value="support">Technical Support</option>
+                                        <option value="billing">Billing Question</option>
+                                        <option value="feature">Feature Request</option>
+                                        <option value="bug">Bug Report</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-gray-300 mb-2">Message</label>
+                                    <textarea id="contactMessage" rows="5" class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-600 focus:border-blue-400 focus:outline-none" required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all">
+                                    <i class="fas fa-paper-plane mr-2"></i>Send Message
                                 </button>
+                            </form>
+                        </div>
+                        
+                        <!-- Contact Information -->
+                        <div class="space-y-6">
+                            <div class="glass p-6 rounded-lg">
+                                <h3 class="text-2xl font-semibold text-white mb-4">Get in Touch</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-envelope text-blue-400 mr-4 text-xl"></i>
+                                        <div>
+                                            <p class="text-white font-semibold">Email</p>
+                                            <p class="text-gray-300">support@Soul.onl</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center">
+                                        <i class="fab fa-discord text-purple-400 mr-4 text-xl"></i>
+                                        <div>
+                                            <p class="text-white font-semibold">Discord</p>
+                                            <p class="text-gray-300">discord.gg/Soul</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-center">
+                                        <i class="fas fa-clock text-green-400 mr-4 text-xl"></i>
+                                        <div>
+                                            <p class="text-white font-semibold">Response Time</p>
+                                            <p class="text-gray-300">Within 24 hours</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="glass p-6 rounded-lg">
+                                <h3 class="text-xl font-semibold text-white mb-4">Follow Us</h3>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="text-blue-400 hover:text-blue-300 text-2xl">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="text-purple-400 hover:text-purple-300 text-2xl">
+                                        <i class="fab fa-discord"></i>
+                                    </a>
+                                    <a href="#" class="text-red-400 hover:text-red-300 text-2xl">
+                                        <i class="fab fa-youtube"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-400 hover:text-gray-300 text-2xl">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="glass p-6 rounded-lg">
+                                <h3 class="text-xl font-semibold text-white mb-4">Quick Links</h3>
+                                <div class="space-y-2">
+                                    <a href="#" onclick="showTab('help')" class="block text-blue-400 hover:text-blue-300">Help & Tutorial</a>
+                                    <a href="#" onclick="showTab('privacy')" class="block text-blue-400 hover:text-blue-300">Privacy Policy</a>
+                                    <a href="#" onclick="showTab('terms')" class="block text-blue-400 hover:text-blue-300">Terms of Service</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-gray-800 rounded-lg p-4">
-                    <h4 class="font-bold mb-4">Chat Rooms</h4>
-                    <div class="space-y-2">
-                        <div class="p-2 bg-gray-700 rounded cursor-pointer hover:bg-gray-600"># General</div>
-                        <div class="p-2 bg-gray-700 rounded cursor-pointer hover:bg-gray-600"># Game Dev</div>
-                        <div class="p-2 bg-gray-700 rounded cursor-pointer hover:bg-gray-600"># Off Topic</div>
+            </div>
+
+            <!-- Credits Tab -->
+            <div id="credits" class="tab-content">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-4xl font-bold text-white mb-8 text-center">
+                        <i class="fas fa-users mr-3"></i>Credits
+                    </h2>
+                    
+                    <div class="space-y-8">
+                        <!-- Development Team -->
+                        <div class="glass p-6 rounded-lg">
+                            <h3 class="text-2xl font-semibold text-white mb-6">
+                                <i class="fas fa-code mr-2 text-blue-400"></i>Development Team
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-user text-white text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-white">John Developer</h4>
+                                        <p class="text-gray-300">Lead Developer</p>
+                                        <p class="text-sm text-gray-400">Core engine development</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-16 h-16 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-user text-white text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-white">Sarah Coder</h4>
+                                        <p class="text-gray-300">UI/UX Developer</p>
+                                        <p class="text-sm text-gray-400">Interface design</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-user text-white text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-white">Mike Tester</h4>
+                                        <p class="text-gray-300">Quality Assurance</p>
+                                        <p class="text-sm text-gray-400">Testing and debugging</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-user text-white text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-white">Alex Support</h4>
+                                        <p class="text-gray-300">Community Manager</p>
+                                        <p class="text-sm text-gray-400">User support and community</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Special Thanks -->
+                        <div class="glass p-6 rounded-lg">
+                            <h3 class="text-2xl font-semibold text-white mb-6">
+                                <i class="fas fa-heart mr-2 text-red-400"></i>Special Thanks
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-white mb-2">Contributors</h4>
+                                    <ul class="text-gray-300 space-y-1">
+                                        <li>• Community beta testers</li>
+                                        <li>• Script library contributors</li>
+                                        <li>• Bug report submitters</li>
+                                        <li>• Feature suggestion providers</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-white mb-2">Technology Stack</h4>
+                                    <ul class="text-gray-300 space-y-1">
+                                        <li>• C++ for core engine</li>
+                                        <li>• JavaScript for UI</li>
+                                        <li>• Lua for scripting</li>
+                                        <li>• Various open-source libraries</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Open Source -->
+                        <div class="glass p-6 rounded-lg">
+                            <h3 class="text-2xl font-semibold text-white mb-4">
+                                <i class="fab fa-github mr-2 text-gray-400"></i>Open Source Libraries
+                            </h3>
+                            <p class="text-gray-300 mb-4">We'd like to thank the developers of these open-source libraries that make Soul possible:</p>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <h5 class="text-white font-semibold">Lua</h5>
+                                    <p class="text-sm text-gray-400">Scripting language</p>
+                                </div>
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <h5 class="text-white font-semibold">Dear ImGui</h5>
+                                    <p class="text-sm text-gray-400">GUI framework</p>
+                                </div>
+                                <div class="bg-gray-800 p-3 rounded">
+                                    <h5 class="text-white font-semibold">MinHook</h5>
+                                    <p class="text-sm text-gray-400">Hooking library</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Version Info -->
+                        <div class="glass p-6 rounded-lg text-center">
+                            <h3 class="text-2xl font-semibold text-white mb-4">
+                                <i class="fas fa-info-circle mr-2 text-blue-400"></i>Version Information
+                            </h3>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div>
+                                    <p class="text-gray-400">Current Version</p>
+                                    <p class="text-white font-bold text-xl">v3.2.1</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Release Date</p>
+                                    <p class="text-white font-bold text-xl">Dec 2024</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400">Total Downloads</p>
+                                    <p class="text-white font-bold text-xl">500K+</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Privacy Policy Tab -->
+            <div id="privacy" class="tab-content">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-4xl font-bold text-white mb-8 text-center">
+                        <i class="fas fa-shield-alt mr-3"></i>Privacy Policy
+                    </h2>
+                    
+                    <div class="glass p-8 rounded-lg">
+                        <p class="text-gray-300 mb-6">Last updated: December 2024</p>
+                        
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">Information We Collect</h3>
+                                <div class="text-gray-300 space-y-3">
+                                    <p><strong>Personal Information:</strong> When you contact us or create an account, we may collect your name, email address, and other contact information.</p>
+                                    <p><strong>Usage Data:</strong> We collect information about how you use our software, including error logs and performance metrics to improve our service.</p>
+                                    <p><strong>Device Information:</strong> We may collect information about your device, including operating system version and hardware specifications for compatibility purposes.</p>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">How We Use Information</h3>
+                                <ul class="text-gray-300 space-y-2 list-disc list-inside">
+                                    <li>To provide and maintain our service</li>
+                                    <li>To notify you about changes to our service</li>
+                                    <li>To provide customer support</li>
+                                    <li>To detect, prevent and address technical issues</li>
+                                    <li>To improve our software based on usage patterns</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">Information Sharing</h3>
+                                <div class="text-gray-300">
+                                    <p>We do not sell, trade, or otherwise transfer your personal information to third parties. We may share information in the following circumstances:</p>
+                                    <ul class="mt-3 space-y-2 list-disc list-inside">
+                                        <li>With your consent</li>
+                                        <li>To comply with legal obligations</li>
+                                        <li>To protect our rights and safety</li>
+                                    </ul>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">Data Security</h3>
+                                <p class="text-gray-300">We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">Your Rights</h3>
+                                <ul class="text-gray-300 space-y-2 list-disc list-inside">
+                                    <li>Access your personal information</li>
+                                    <li>Correct inaccurate information</li>
+                                    <li>Request deletion of your information</li>
+                                    <li>Object to processing of your information</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">Contact Us</h3>
+                                <p class="text-gray-300">If you have questions about this Privacy Policy, please contact us at privacy@Soul.onl</p>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terms of Service Tab -->
+            <div id="terms" class="tab-content">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-4xl font-bold text-white mb-8 text-center">
+                        <i class="fas fa-file-contract mr-3"></i>Terms of Service
+                    </h2>
+                    
+                    <div class="glass p-8 rounded-lg">
+                        <p class="text-gray-300 mb-6">Last updated: December 2024</p>
+                        
+                        <div class="space-y-6">
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">Acceptance of Terms</h3>
+                                <p class="text-gray-300">By downloading, installing, or using Soul, you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you may not use our software.</p>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">Use License</h3>
+                                <div class="text-gray-300 space-y-3">
+                                    <p>Permission is granted to temporarily download one copy of Soul for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
+                                    <ul class="space-y-2 list-disc list-inside ml-4">
+                                        <li>Modify or copy the materials</li>
+                                        <li>Use the materials for any commercial purpose</li>
+                                        <li>Attempt to decompile or reverse engineer any software</li>
+                                        <li>Remove any copyright or other proprietary notations</li>
+                                    </ul>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">Disclaimer</h3>
+                                <div class="text-gray-300 space-y-3">
+                                    <p>The materials on Soul are provided on an 'as is' basis. Soul makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties.</p>
+                                    <p><strong>Important:</strong> Use of this software may violate the terms of service of other applications. Users assume all responsibility for their actions.</p>
+                                </div>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">Limitations</h3>
+                                <p class="text-gray-300">In no event shall Soul or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use Soul software.</p>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">User Conduct</h3>
+                                <ul class="text-gray-300 space-y-2 list-disc list-inside">
+                                    <li>You must not use the software for illegal activities</li>
+                                    <li>You must not harm or attempt to harm other users</li>
+                                    <li>You must not distribute malicious scripts</li>
+                                    <li>You must respect intellectual property rights</li>
+                                </ul>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">Termination</h3>
+                                <p class="text-gray-300">We may terminate or suspend your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">Changes to Terms</h3>
+                                <p class="text-gray-300">We reserve the right, at our sole discretion, to modify or replace these Terms at any time. We will provide notice of any significant changes.</p>
+                            </section>
+                            
+                            <section>
+                                <h3 class="text-2xl font-semibold text-white mb-4">Contact Information</h3>
+                                <p class="text-gray-300">If you have any questions about these Terms of Service, please contact us at legal@Soul.onl</p>
+                            </section>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Creator Hub Tab -->
-        <div id="creator" class="tab-content">
-            <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold mb-4">Creator Hub</h2>
-                <p class="text-gray-400 text-lg">Build, share, and monetize your gaming creations</p>
+        <!-- Footer -->
+        <footer class="glass mt-12 p-6 text-center">
+            <div class="container mx-auto">
+                <div class="flex flex-wrap justify-center space-x-6 mb-4">
+                    <a href="#" onclick="showTab('help')" class="text-gray-300 hover:text-white">Help & Tutorial</a>
+                    <a href="#" onclick="showTab('credits')" class="text-gray-300 hover:text-white">Credits</a>
+                    <a href="#" onclick="showTab('privacy')" class="text-gray-300 hover:text-white">Privacy Policy</a>
+                    <a href="#" onclick="showTab('terms')" class="text-gray-300 hover:text-white">Terms of Service</a>
+                    <a href="#" onclick="showTab('contact')" class="text-gray-300 hover:text-white">Contact</a>
+                    <a href="#" onclick="showTab('premium')" class="text-gray-300 hover:text-white">Premium Plans</a>
+                </div>
+                <p class="text-gray-400">© 2024 Soul. All rights reserved. Experience the future.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-gray-800 rounded-lg p-6 text-center">
-                    <i class="fas fa-plus-circle text-4xl text-blue-500 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Create New Game</h3>
-                    <p class="text-gray-400 mb-4">Start building your next masterpiece</p>
-                    <button class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-lg">Get Started</button>
-                </div>
-                <div class="bg-gray-800 rounded-lg p-6 text-center">
-                    <i class="fas fa-upload text-4xl text-green-500 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Upload Assets</h3>
-                    <p class="text-gray-400 mb-4">Share your models, textures, and sounds</p>
-                    <button class="bg-green-600 hover:bg-green-700 px-6 py-2 rounded-lg">Upload Now</button>
-                </div>
-                <div class="bg-gray-800 rounded-lg p-6 text-center">
-                    <i class="fas fa-dollar-sign text-4xl text-yellow-500 mb-4"></i>
-                    <h3 class="text-xl font-bold mb-2">Monetize</h3>
-                    <p class="text-gray-400 mb-4">Earn from your creative work</p>
-                    <button class="bg-yellow-600 hover:bg-yellow-700 px-6 py-2 rounded-lg">Learn More</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Stats Tab -->
-        <div id="stats" class="tab-content">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="stats-card rounded-lg p-6 text-center text-white">
-                    <i class="fas fa-users text-3xl mb-2"></i>
-                    <h3 class="text-2xl font-bold" id="totalUsers">2</h3>
-                    <p>Total Users</p>
-                </div>
-                <div class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg p-6 text-center text-white">
-                    <i class="fas fa-gamepad text-3xl mb-2"></i>
-                    <h3 class="text-2xl font-bold" id="totalGames">45K</h3>
-                    <p>Scripts Created</p>
-                </div>
-                <div class="bg-gradient-to-r from-blue-500 to-teal-500 rounded-lg p-6 text-center text-white">
-                    <i class="fas fa-clock text-3xl mb-2"></i>
-                    <h3 class="text-2xl font-bold" id="hoursPlayed">1.2M</h3>
-                    <p>Hours Played</p>
-                </div>
-                <div class="bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg p-6 text-center text-white">
-                    <i class="fas fa-trophy text-3xl mb-2"></i>
-                    <h3 class="text-2xl font-bold" id="achievements">890K</h3>
-                    <p>Achievements</p>
-                </div>
-            </div>
-            <div class="bg-gray-800 rounded-lg p-6">
-                <h3 class="text-xl font-bold mb-4">Platform Activity</h3>
-                <canvas id="activityChart" style="height: 400px;"></canvas>
-            </div>
-        </div>
-    </main>
-
-    <!-- Notification Panel -->
-    <div id="notificationPanel" class="fixed top-16 right-4 w-80 bg-gray-800 rounded-lg shadow-xl z-50 hidden">
-        <div class="p-4 border-b border-gray-700">
-            <h3 class="font-bold">Notifications</h3>
-        </div>
-        <div id="notificationList" class="p-4 space-y-3 max-h-64 overflow-y-auto">
-            <!-- Notifications will be populated here -->
-        </div>
+        </footer>
     </div>
 
     <script>
-        // Global variables
-        let currentUser = 'GamerPro';
-        let onlineUsers = ['Player1', 'GameMaster', 'ProGamer', 'DevCreator', 'PixelArt', 'SpeedRunner'];
-        let feedItems = [];
-        let chatMessages = [];
-        let notifications = [];
-
-        // Tab functionality
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const targetTab = this.dataset.tab;
-                
-                // Update active tab button
-                document.querySelectorAll('.tab-btn').forEach(b => {
-                    b.classList.remove('active', 'text-blue-400', 'border-blue-400');
-                    b.classList.add('text-gray-400');
-                });
-                this.classList.add('active', 'text-blue-400', 'border-blue-400');
-                this.classList.remove('text-gray-400');
-                
-                // Show active tab content
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-                document.getElementById(targetTab).classList.add('active');
-                
-                // Initialize tab-specific content
-                if (targetTab === 'stats') {
-                    initializeChart();
-                } else if (targetTab === 'games') {
-                    populateGames();
-                }
-            });
-        });
-
-        // Discord integration
-        document.getElementById('discordBtn').addEventListener('click', function() {
-            window.open('https://discord.gg/XezCtmMRn4', '_blank');
-            addNotification('Discord invite copied to clipboard!', 'success');
-        });
-
-        // Chat functionality
-        document.getElementById('sendBtn').addEventListener('click', sendMessage);
-        document.getElementById('chatInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            if (message) {
-                addChatMessage(currentUser, message, true);
-                input.value = '';
-                
-                // Simulate responses
-                setTimeout(() => {
-                    const responses = [
-                        'Nice scrip!', 'Anyone want to hack?', 'Just finished my script!',
-                        'Looking for beta testers!', 'Great work on that build!', 'Anyone know how to fix this bug?'
-                    ];
-                    const randomUser = onlineUsers[Math.floor(Math.random() * onlineUsers.length)];
-                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                    addChatMessage(randomUser, randomResponse);
-                }, Math.random() * 3000 + 1000);
-            }
-        }
-
-        function addChatMessage(username, message, isCurrentUser = false) {
-            const chatContainer = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `chat-message p-2 rounded ${isCurrentUser ? 'bg-blue-600 ml-8' : 'bg-gray-700'}`;
-            messageDiv.innerHTML = `
-                <div class="flex items-center space-x-2 mb-1">
-                    <span class="font-bold text-sm">${username}</span>
-                    <span class="text-xs text-gray-400">${new Date().toLocaleTimeString()}</span>
-                </div>
-                <div>${message}</div>
-            `;
-            chatContainer.appendChild(messageDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+        // Particle System
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = Math.random() * window.innerHeight + 'px';
+            particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
             
-            chatMessages.push({username, message, timestamp: Date.now()});
-        }
-
-        // Notifications
-        document.getElementById('notificationBtn').addEventListener('click', function() {
-            const panel = document.getElementById('notificationPanel');
-            panel.classList.toggle('hidden');
-            if (!panel.classList.contains('hidden')) {
-                populateNotifications();
-            }
-        });
-
-        function addNotification(message, type = 'info') {
-            notifications.unshift({
-                message,
-                type,
-                timestamp: Date.now()
-            });
-            
-            const countElement = document.getElementById('notificationCount');
-            countElement.textContent = notifications.length;
-            
-            // Show notification toast
-            const toast = document.createElement('div');
-            toast.className = `notification fixed top-20 right-4 px-4 py-2 rounded-lg text-white z-50 ${
-                type === 'success' ? 'bg-green-600' : 
-                type === 'error' ? 'bg-red-600' : 'bg-blue-600'
-            }`;
-            toast.textContent = message;
-            document.body.appendChild(toast);
+            document.getElementById('particles').appendChild(particle);
             
             setTimeout(() => {
-                toast.remove();
-            }, 3000);
+                particle.remove();
+            }, 5000);
         }
 
-        function populateNotifications() {
-            const container = document.getElementById('notificationList');
-            container.innerHTML = notifications.map(notif => `
-                <div class="p-2 bg-gray-700 rounded">
-                    <div class="text-sm">${notif.message}</div>
-                    <div class="text-xs text-gray-400">${new Date(notif.timestamp).toLocaleTimeString()}</div>
-                </div>
-            `).join('');
+        // Create particles continuously
+        setInterval(createParticle, 300);
+
+        // Initialize particles
+        for (let i = 0; i < 20; i++) {
+            setTimeout(createParticle, i * 100);
         }
 
-        // Live feed
-        function populateFeed() {
-            const feedContainer = document.getElementById('liveFeed');
-            const samplePosts = [
-                {
-                    user: 'DevCreator',
-                    content: 'Just released the Deadrais scrip! An original character illustrated by my friend @catbyg',
-                    timestamp: Date.now() - 300000,
-                    likes: 42,
-                    comments: 8,
-                    image: true
-                },
-                {
-                    user: 'GameMaster',
-                    content: 'TSB Releases Soon! Beta testing starts next week. Who wants early access?',
-                    timestamp: Date.now() - 600000,
-                    likes: 156,
-                    comments: 23
-                },
-                {
-                    user: 'PixelArt',
-                    content: 'Shiny Hubert signed by me. 24 hours to buy it - limited edition!',
-                    timestamp: Date.now() - 900000,
-                    likes: 89,
-                    comments: 15,
-                    image: true
-                }
-            ];
-            
-            feedContainer.innerHTML = samplePosts.map(post => `
-                <div class="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                    <div class="flex items-center space-x-3 mb-3">
-                        <img src="https://via.placeholder.com/40x40/4facfe/ffffff?text=${post.user[0]}" alt="${post.user}" class="w-10 h-10 rounded-full">
-                        <div>
-                            <div class="font-bold">${post.user}</div>
-                            <div class="text-sm text-gray-400">${new Date(post.timestamp).toLocaleTimeString()}</div>
-                        </div>
-                    </div>
-                    <div class="mb-3">${post.content}</div>
-                    ${post.image ? '<div class="bg-gray-600 h-32 rounded mb-3 flex items-center justify-center"><i class="fas fa-image text-2xl text-gray-400"></i></div>' : ''}
-                    <div class="flex items-center space-x-4 text-sm text-gray-400">
-                        <button class="flex items-center space-x-1 hover:text-red-400">
-                            <i class="fas fa-heart"></i>
-                            <span>${post.likes}</span>
-                        </button>
-                        <button class="flex items-center space-x-1 hover:text-blue-400">
-                            <i class="fas fa-comment"></i>
-                            <span>${post.comments}</span>
-                        </button>
-                        <button class="flex items-center space-x-1 hover:text-green-400">
-                            <i class="fas fa-share"></i>
-                            <span>Share</span>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Online users
-        function populateOnlineUsers() {
-            const container = document.getElementById('onlineUsers');
-            container.innerHTML = onlineUsers.slice(0, 5).map(user => `
-                <div class="flex items-center space-x-2">
-                    <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span class="text-sm">${user}</span>
-                </div>
-            `).join('');
-        }
-
-        // Games
-        function populateGames() {
-            const gamesContainer = document.querySelector('#games .grid');
-            const sampleGames = [
-                {
-                    title: 'Space Adventure VR',
-                    creator: 'DevCreator',
-                    players: 1247,
-                    rating: 4.8,
-                    category: 'Adventure'
-                },
-                {
-                    title: 'Pixel Platformer',
-                    creator: 'PixelArt',
-                    players: 892,
-                    rating: 4.6,
-                    category: 'Platformer'
-                },
-                {
-                    title: 'DeadRais',
-                    creator: 'Soul',
-                    players: 2,
-                    rating: 1.0,
-                    category: 'scrip'
-                }
-            ];
-            
-            gamesContainer.innerHTML = sampleGames.map(game => `
-                <div class="game-card bg-gray-800 rounded-lg overflow-hidden">
-                    <div class="h-48 bg-gradient-to-r from-purple-600 to-blue-600 flex items-center justify-center">
-                        <i class="fas fa-gamepad text-4xl text-white"></i>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">${game.title}</h3>
-                        <p class="text-gray-400 text-sm mb-2">by ${game.creator}</p>
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="text-sm text-gray-400">${game.players} playing</span>
-                            <div class="flex items-center space-x-1">
-                                <i class="fas fa-star text-yellow-500"></i>
-                                <span class="text-sm">${game.rating}</span>
-                            </div>
-                        </div>
-                        <div class="flex space-x-2">
-                            <button class="flex-1 bg-blue-600 hover:bg-blue-700 py-2 rounded text-sm font-medium">
-                                <i class="fas fa-play mr-2"></i>Play
-                            </button>
-                            <button class="px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded">
-                                <i class="fas fa-heart"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Chart initialization
-        function initializeChart() {
-            const ctx = document.getElementById('activityChart');
-            if (ctx && !ctx.chart) {
-                ctx.chart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                        datasets: [{
-                            label: 'Active Users',
-                            data: [12000, 15000, 18000, 14000, 22000, 25000, 28000],
-                            borderColor: '#3B82F6',
-                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                            tension: 0.4
-                        }, {
-                            label: 'Games Created',
-                            data: [120, 150, 180, 140, 220, 250, 280],
-                            borderColor: '#10B981',
-                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                            tension: 0.4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    color: '#fff'
-                                }
-                            }
-                        },
-                        scales: {
-                            x: {
-                                ticks: { color: '#fff' },
-                                grid: { color: '#374151' }
-                            },
-                            y: {
-                                ticks: { color: '#fff' },
-                                grid: { color: '#374151' }
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-        // Real-time updates
-        function updateStats() {
-            const stats = {
-                onlineCount: Math.floor(Math.random() * 100) + 1200,
-                activeGames: Math.floor(Math.random() * 100) + 2300,
-                playersOnline: Math.floor(Math.random() * 1000) + 15000,
-                roomsToday: Math.floor(Math.random() * 50) + 850
-            };
-            
-            Object.keys(stats).forEach(key => {
-                const element = document.getElementById(key);
-                if (element) {
-                    element.textContent = stats[key].toLocaleString();
-                }
+        // Tab Navigation
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
             });
+            
+            // Remove active class from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked nav item
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
         }
 
-        // Auto-generate content
-        function generateRandomActivity() {
-            const activities = [
-                'New Scrip "Dead Rails" just came out!',
-                'Player "DiscoBarn" just set a new hacking record!',
-                'Weekly tournament starting in 10 minutes!',
-                'Featured creator spotlight: Check out @Soulwhoareyou latest creation!',
-                'System update: New physics engine deployed!'
-            ];
-            
-            const randomActivity = activities[Math.floor(Math.random() * activities.length)];
-            addNotification(randomActivity, 'info');
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
         }
 
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', function() {
-            populateFeed();
-            populateOnlineUsers();
-            populateGames();
+        // Download Functions
+        function downloadFree() {
+            const btn = event.target;
+            const originalText = btn.innerHTML;
             
-            // Add some initial notifications
-            addNotification('Welcome to SoulSite! 🎮', 'success');
-            addNotification('Check out the new featured games!', 'info');
-            addNotification('Your friend Soul is now online', 'info');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Preparing Download...';
+            btn.disabled = true;
             
-            // Add some initial chat messages
             setTimeout(() => {
-                addChatMessage('GameMaster', 'Welcome everyone to the global chat!');
+                btn.innerHTML = '<i class="fas fa-check mr-2"></i>Download Started!';
+                
+                // Simulate download
+                const link = document.createElement('a');
+                link.href = 'data:text/plain;charset=utf-8,Thank you for downloading Soul! This is a demo file.';
+                link.download = 'Soul_Free.txt';
+                link.click();
+                
                 setTimeout(() => {
-                    addChatMessage('DevCreator', 'Excited to share my new game with you all!');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
                 }, 2000);
-                setTimeout(() => {
-                    addChatMessage('PixelArt', 'Anyone want to collaborate on a pixel art project?');
-                }, 4000);
-            }, 1000);
+            }, 2000);
+        }
+
+        function buyPremium(plan) {
+            alert(`Redirecting to payment for ${plan} plan...`);
+            // Here you would integrate with a payment processor like Stripe
+        }
+
+        // Contact Form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            // Start real-time updates
-            setInterval(updateStats, 5000);
-            setInterval(generateRandomActivity, 30000);
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('contactSubject').value;
+            const message = document.getElementById('contactMessage').value;
             
-            // Simulate live user activity
-            setInterval(() => {
-                const randomUser = onlineUsers[Math.floor(Math.random() * onlineUsers.length)];
-                const activities = [
-                    `${randomUser} joined a new game`,
-                    `${randomUser} created a new room`,
-                    `${randomUser} shared a screenshot`,
-                    `${randomUser} started streaming`
-                ];
-                const activity = activities[Math.floor(Math.random() * activities.length)];
+            if (name && email && subject && message) {
+                alert('Thank you for your message! We will get back to you within 24 hours.');
                 
-                // Add to live feed occasionally
-                if (Math.random() > 0.7) {
-                    const feedContainer = document.getElementById('liveFeed');
-                    const newPost = document.createElement('div');
-                    newPost.className = 'bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors chat-message';
-                    newPost.innerHTML = `
-                        <div class="flex items-center space-x-3 mb-3">
-                            <img src="https://via.placeholder.com/40x40/4facfe/ffffff?text=${randomUser[0]}" alt="${randomUser}" class="w-10 h-10 rounded-full">
-                            <div>
-                                <div class="font-bold">${randomUser}</div>
-                                <div class="text-sm text-gray-400">just now</div>
-                            </div>
-                        </div>
-                        <div class="mb-3">${activity}</div>
-                        <div class="flex items-center space-x-4 text-sm text-gray-400">
-                            <button class="flex items-center space-x-1 hover:text-red-400">
-                                <i class="fas fa-heart"></i>
-                                <span>0</span>
-                            </button>
-                            <button class="flex items-center space-x-1 hover:text-blue-400">
-                                <i class="fas fa-comment"></i>
-                                <span>0</span>
-                            </button>
-                        </div>
-                    `;
-                    feedContainer.insertBefore(newPost, feedContainer.firstChild);
-                    
-                    // Keep only last 10 posts
-                    while (feedContainer.children.length > 10) {
-                        feedContainer.removeChild(feedContainer.lastChild);
-                    }
-                }
-            }, 10000);
+                // Reset form
+                this.reset();
+            } else {
+                alert('Please fill in all fields.');
+            }
         });
 
-        // Close notification panel when clicking outside
-        document.addEventListener('click', function(e) {
-            const panel = document.getElementById('notificationPanel');
-            const btn = document.getElementById('notificationBtn');
-            if (!panel.contains(e.target) && !btn.contains(e.target)) {
-                panel.classList.add('hidden');
+        // Mouse particle effects
+        document.addEventListener('mousemove', function(e) {
+            if (Math.random() > 0.97) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = e.clientX + 'px';
+                particle.style.top = e.clientY + 'px';
+                particle.style.width = '2px';
+                particle.style.height = '2px';
+                particle.style.background = 'rgba(255, 255, 255, 0.6)';
+                particle.style.animationDuration = '1s';
+                
+                document.getElementById('particles').appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000);
             }
+        });
+
+        // Click particle burst
+        document.addEventListener('click', function(e) {
+            for (let i = 0; i < 5; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = (e.clientX + Math.random() * 20 - 10) + 'px';
+                particle.style.top = (e.clientY + Math.random() * 20 - 10) + 'px';
+                particle.style.width = '3px';
+                particle.style.height = '3px';
+                particle.style.background = 'rgba(255, 215, 0, 0.8)';
+                particle.style.animationDuration = '0.8s';
+                
+                document.getElementById('particles').appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 800);
+            }
+        });
+
+        // Add click handlers for footer links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Footer navigation links
+            document.querySelectorAll('footer a[onclick]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tabName = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    showTab(tabName);
+                });
+            });
         });
     </script>
 </body>
