@@ -3,726 +3,834 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jujutsu Infinite Codes - Ultimate Guide 2025</title>
+    <title>Discord - Talk, Chat, Hang Out</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-purple: #8B5CF6;
-            --cursed-red: #DC2626;
-            --dark-purple: #5B21B6;
-            --neon-blue: #00F5FF;
-            --energy-pink: #FF1493;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=gg+sans:wght@400;500;600;700&display=swap');
+        
         * {
-            box-sizing: border-box;
+            font-family: 'gg sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
-
-        body {
-            font-family: 'Rajdhani', sans-serif;
-            background: linear-gradient(135deg, #0f0a1a 0%, #1a0d2e 25%, #2d1b3d 50%, #1a0d2e 75%, #0f0a1a 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
+        
+        .discord-gradient {
+            background: linear-gradient(135deg, #5865f2 0%, #7c3aed 100%);
         }
-
-        .cursed-energy {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
+        
+        .discord-bg {
+            background: linear-gradient(135deg, #404eed 0%, #5865f2 100%);
         }
-
-        .energy-particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: radial-gradient(circle, var(--neon-blue) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 8s infinite ease-in-out;
-            box-shadow: 0 0 15px var(--neon-blue);
+        
+        .nitro-gradient {
+            background: linear-gradient(135deg, #ff73fa 0%, #5865f2 100%);
         }
-
-        .energy-particle:nth-child(2n) {
-            background: radial-gradient(circle, var(--energy-pink) 0%, transparent 70%);
-            box-shadow: 0 0 15px var(--energy-pink);
-            animation-delay: -2s;
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
         }
-
-        .energy-particle:nth-child(3n) {
-            background: radial-gradient(circle, var(--primary-purple) 0%, transparent 70%);
-            box-shadow: 0 0 15px var(--primary-purple);
-            animation-delay: -4s;
-        }
-
+        
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
-            25% { transform: translateY(-100px) rotate(90deg); opacity: 1; }
-            50% { transform: translateY(-200px) rotate(180deg); opacity: 0.6; }
-            75% { transform: translateY(-300px) rotate(270deg); opacity: 1; }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
-
-        .cursed-text {
-            font-family: 'Orbitron', monospace;
-            background: linear-gradient(45deg, var(--primary-purple), var(--neon-blue), var(--energy-pink));
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient-shift 3s ease infinite;
-            text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+        
+        .star-animation {
+            animation: twinkle 2s ease-in-out infinite alternate;
         }
-
-        @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
         }
-
-        .glow-card {
-            background: rgba(13, 6, 30, 0.9);
-            border: 2px solid rgba(139, 92, 246, 0.3);
-            border-radius: 20px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 0 50px rgba(139, 92, 246, 0.2);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in-out;
         }
-
-        .glow-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--primary-purple), var(--neon-blue), var(--energy-pink), var(--primary-purple));
-            border-radius: 20px;
-            z-index: -1;
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        
+        .marquee {
+            animation: marquee 20s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .dropdown-menu {
             opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .glow-card:hover::before {
-            opacity: 1;
-        }
-
-        .glow-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 80px rgba(139, 92, 246, 0.4);
+            transition: all 0.2s ease;
+            pointer-events: none;
         }
-
-        .code-button {
-            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
-            border: none;
-            border-radius: 12px;
-            color: white;
-            padding: 12px 24px;
-            font-weight: 600;
-            font-family: 'Orbitron', monospace;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
         }
-
-        .code-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .code-button:hover::before {
-            left: 100%;
-        }
-
-        .code-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
-        }
-
-        .discord-logo {
-            color: #7289da;
-            font-size: 2rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .discord-logo:hover {
-            color: #5b6eae;
-            transform: scale(1.2) rotate(5deg);
-            text-shadow: 0 0 20px #7289da;
-        }
-
-        .pulsing-border {
-            animation: pulse-border 2s infinite;
-        }
-
-        @keyframes pulse-border {
-            0%, 100% { border-color: rgba(139, 92, 246, 0.3); }
-            50% { border-color: rgba(139, 92, 246, 0.8); }
-        }
-
-        .table-glow {
-            background: rgba(13, 6, 30, 0.95);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
-        }
-
-        .table-header {
-            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
-            color: white;
-            font-weight: 700;
-            padding: 16px;
-            text-align: center;
-        }
-
-        .table-row {
-            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .table-row:hover {
-            background: rgba(139, 92, 246, 0.1);
-            transform: scale(1.02);
-        }
-
-        .expired-badge {
-            background: linear-gradient(135deg, var(--cursed-red), #991b1b);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .new-badge {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .title-glow {
-            text-shadow: 0 0 40px rgba(139, 92, 246, 0.8);
-            animation: title-pulse 3s ease-in-out infinite;
-        }
-
-        @keyframes title-pulse {
-            0%, 100% { text-shadow: 0 0 40px rgba(139, 92, 246, 0.8); }
-            50% { text-shadow: 0 0 60px rgba(139, 92, 246, 1), 0 0 80px rgba(0, 245, 255, 0.6); }
-        }
-
-        .copyright-footer {
-            background: linear-gradient(135deg, rgba(13, 6, 30, 0.95), rgba(26, 13, 46, 0.95));
-            border-top: 2px solid rgba(139, 92, 246, 0.3);
-            backdrop-filter: blur(20px);
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
-            color: white;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            z-index: 1000;
-            transform: translateX(400px);
+        
+        .mobile-menu {
+            transform: translateX(100%);
             transition: transform 0.3s ease;
-            box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
         }
-
-        .notification.show {
+        
+        .mobile-menu.active {
             transform: translateX(0);
         }
-
-        .floating-orb {
-            position: fixed;
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
-            animation: orb-float 20s infinite ease-in-out;
-            pointer-events: none;
-            z-index: 0;
+        
+        .page-section {
+            display: none;
         }
-
-        .floating-orb:nth-child(2) {
-            animation-delay: -10s;
-            background: radial-gradient(circle, rgba(0, 245, 255, 0.3) 0%, transparent 70%);
+        
+        .page-section.active {
+            display: block;
         }
-
-        @keyframes orb-float {
-            0%, 100% { transform: translate(0px, 0px) scale(1); }
-            25% { transform: translate(100px, -100px) scale(1.2); }
-            50% { transform: translate(-100px, -200px) scale(0.8); }
-            75% { transform: translate(-150px, -50px) scale(1.1); }
+        
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .step-card {
-            background: rgba(13, 6, 30, 0.9);
-            border: 2px solid rgba(139, 92, 246, 0.3);
-            border-radius: 15px;
-            padding: 24px;
-            margin: 16px 0;
-            position: relative;
+        
+        .faq-content {
+            max-height: 0;
             overflow: hidden;
+            transition: max-height 0.3s ease;
         }
-
-        .step-number {
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
+        
+        .faq-item.active .faq-content {
+            max-height: 500px;
         }
-
-        @media (max-width: 768px) {
-            .energy-particle {
-                width: 4px;
-                height: 4px;
-            }
-            
-            .floating-orb {
-                width: 100px;
-                height: 100px;
-            }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .plan-card {
+            transition: all 0.3s ease;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
-<body>
-    <!-- Cursed Energy Particles -->
-    <div class="cursed-energy" id="cursedEnergy"></div>
-    
-    <!-- Floating Orbs -->
-    <div class="floating-orb" style="top: 10%; left: 10%;"></div>
-    <div class="floating-orb" style="top: 60%; right: 15%;"></div>
+<body class="bg-gray-900 text-white overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-gray-900 bg-opacity-95 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <button onclick="showPage('home')" class="flex items-center space-x-2 text-white hover:text-purple-400 transition-colors">
+                        <i class="fab fa-discord text-2xl"></i>
+                        <span class="font-bold text-xl">Discord</span>
+                    </button>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors">Download</a>
+                    <button onclick="showPage('nitro')" class="text-gray-300 hover:text-white transition-colors">Nitro</button>
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors">Discover</a>
+                    
+                    <div class="dropdown relative">
+                        <button class="text-gray-300 hover:text-white transition-colors flex items-center">
+                            Safety <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 bg-gray-800 rounded-lg shadow-xl p-4">
+                            <a href="#" class="block py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors">Safety News</a>
+                            <a href="#" class="block py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors">Safety Library</a>
+                            <a href="#" class="block py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors">Community Guidelines</a>
+                        </div>
+                    </div>
+                    
+                    <div class="dropdown relative">
+                        <button class="text-gray-300 hover:text-white transition-colors flex items-center">
+                            Support <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-64 bg-gray-800 rounded-lg shadow-xl p-4">
+                            <a href="#" class="block py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors">Help Center</a>
+                            <a href="#" class="block py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors">Feedback</a>
+                            <a href="#" class="block py-2 px-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded transition-colors">Submit a Request</a>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors">Blog</a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-colors">Careers</a>
+                </div>
+                
+                <div class="hidden md:block">
+                    <button class="bg-white text-gray-900 px-4 py-2 rounded-full font-medium hover:bg-gray-100 transition-colors">
+                        Log In
+                    </button>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div class="mobile-menu fixed top-0 right-0 h-full w-80 bg-gray-900 shadow-xl z-50 p-6">
+            <div class="flex justify-between items-center mb-8">
+                <span class="text-xl font-bold">Menu</span>
+                <button onclick="toggleMobileMenu()" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <a href="#" class="block text-gray-300 hover:text-white py-2">Download</a>
+                <button onclick="showPage('nitro')" class="block text-gray-300 hover:text-white py-2 w-full text-left">Nitro</button>
+                <a href="#" class="block text-gray-300 hover:text-white py-2">Discover</a>
+                <a href="#" class="block text-gray-300 hover:text-white py-2">Safety</a>
+                <a href="#" class="block text-gray-300 hover:text-white py-2">Support</a>
+                <a href="#" class="block text-gray-300 hover:text-white py-2">Blog</a>
+                <a href="#" class="block text-gray-300 hover:text-white py-2">Careers</a>
+                <button class="bg-white text-gray-900 px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition-colors mt-4">
+                    Log In
+                </button>
+            </div>
+        </div>
+    </nav>
 
-    <!-- Notification -->
-    <div id="notification" class="notification">
-        <i class="fas fa-copy mr-2"></i>
-        Code copied to clipboard!
+    <!-- Homepage -->
+    <div id="home-page" class="page-section active">
+        <!-- Hero Section -->
+        <section class="discord-bg min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+            <!-- Background Stars -->
+            <div class="absolute inset-0">
+                <div class="star-animation absolute top-20 left-10 text-yellow-300 text-2xl">✦</div>
+                <div class="star-animation absolute top-32 right-20 text-purple-300 text-lg" style="animation-delay: 0.5s;">✦</div>
+                <div class="star-animation absolute bottom-40 left-20 text-blue-300 text-xl" style="animation-delay: 1s;">✦</div>
+                <div class="star-animation absolute top-60 right-40 text-pink-300 text-sm" style="animation-delay: 1.5s;">✦</div>
+            </div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">
+                        GROUP CHAT<br>
+                        THAT'S ALL<br>
+                        <span class="text-yellow-300">FUN & GAMES</span>
+                    </h1>
+                    <p class="text-xl mb-8 text-gray-200 max-w-md mx-auto lg:mx-0">
+                        Discord is great for playing games and chilling with friends, or even building a worldwide community. Customize your own space to talk, play, and hang out.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <button class="bg-white text-gray-900 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center">
+                            <i class="fas fa-download mr-2"></i>
+                            Download for Linux
+                        </button>
+                        <button class="bg-gray-800 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-700 transition-colors">
+                            Open Discord in your browser
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="floating-animation">
+                        <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/6841ca4c5468891aedebb224_homepage-hero-mobile-858x803.webp" alt="Discord Interface" class="w-full max-w-lg mx-auto">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-20 bg-white text-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
+                            MAKE YOUR GROUP CHATS MORE FUN
+                        </h2>
+                        <p class="text-xl text-gray-600 leading-relaxed">
+                            Use custom emoji, stickers, soundboard effects and more to add your personality to your voice, video, or text chat. Set your avatar and a custom status, and write your own profile to show up in chat your way.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/664723da0a2e6be98fa5216b_Discord_Website_Refresh_Emojis%2BSoundboard.webp" alt="Custom emoji and soundboard" class="w-full rounded-lg shadow-lg">
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
+                    <div class="feature-card order-2 lg:order-1">
+                        <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/6638bdbd1150b7c8509fb2be_Discord_Website_Refresh_SameRoom.webp" alt="Stream like same room" class="w-full rounded-lg shadow-lg">
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <h2 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
+                            stream like you're in the same room
+                        </h2>
+                        <p class="text-xl text-gray-600 leading-relaxed">
+                            High quality and low latency streaming makes it feel like you're hanging out on the couch with friends while playing a game, watching shows, looking at photos, or idk doing homework or something.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
+                            Hop in when you're free, no need to call
+                        </h2>
+                        <p class="text-xl text-gray-600 leading-relaxed">
+                            Easily hop in and out of voice or text chats without having to call or invite anyone, so your party chat lasts before, during, and after your game session.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/664723da372be4a12a3dc9df_Discord_Website_Refresh_Hop-In.webp" alt="Hop in feature" class="w-full rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marquee Section -->
+        <section class="py-12 bg-purple-600 overflow-hidden">
+            <div class="marquee flex items-center space-x-8 text-4xl font-black">
+                <span class="flex items-center whitespace-nowrap">
+                    <i class="fab fa-discord mr-4"></i>talk
+                    <i class="fab fa-discord mx-8"></i>play
+                    <i class="fab fa-discord mx-8"></i>chat
+                    <i class="fab fa-discord mx-8"></i>hang out
+                    <i class="fab fa-discord mx-8"></i>talk
+                    <i class="fab fa-discord mx-8"></i>play
+                    <i class="fab fa-discord mx-8"></i>chat
+                    <i class="fab fa-discord mx-8"></i>hang out
+                </span>
+            </div>
+        </section>
+
+        <!-- More Features -->
+        <section class="py-20 bg-gray-100 text-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
+                    <div class="feature-card order-2 lg:order-1">
+                        <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/664723da94dd30e64e74357a_Discord_Website_Refresh_StatusHover.webp" alt="See who's around" class="w-full rounded-lg shadow-lg">
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <h2 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
+                            See who's around to chill
+                        </h2>
+                        <p class="text-xl text-gray-600 leading-relaxed">
+                            See who's around, playing games, or just hanging out. For supported games, you can see what modes or characters your friends are playing and directly join up.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
+                            always have something to do together
+                        </h2>
+                        <p class="text-xl text-gray-600 leading-relaxed">
+                            Watch videos, play built-in games, listen to music, or just scroll together and spam memes. Seamlessly text, call, video chat, and play games, all in one group chat.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/664723dbe91e5ee8db15cfe7_Discord_Website_Refresh_Activities.webp" alt="Activities together" class="w-full rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="discord-bg py-20 text-center">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl md:text-6xl font-black mb-8">
+                    YOU CAN'T SCROLL ANYMORE.<br>
+                    BETTER GO CHAT.
+                </h2>
+                <button class="bg-white text-gray-900 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors text-xl">
+                    Download for Mac
+                </button>
+            </div>
+        </section>
     </div>
 
-    <div class="relative z-10">
-        <!-- Header -->
-        <header class="text-center py-12 px-4">
-            <div class="flex justify-center items-center mb-6">
-                <h1 class="text-6xl font-black cursed-text title-glow mr-4">JUJUTSU INFINITE</h1>
-                <i class="fab fa-discord discord-logo" onclick="openDiscord()"></i>
+    <!-- Nitro Page -->
+    <div id="nitro-page" class="page-section">
+        <!-- Nitro Hero Section -->
+        <section class="nitro-gradient min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+            <!-- Background Elements -->
+            <div class="absolute inset-0">
+                <div class="star-animation absolute top-20 left-10 text-white text-2xl">✦</div>
+                <div class="star-animation absolute top-32 right-20 text-yellow-300 text-lg" style="animation-delay: 0.5s;">✦</div>
+                <div class="star-animation absolute bottom-40 left-20 text-blue-300 text-xl" style="animation-delay: 1s;">✦</div>
+                <div class="star-animation absolute top-60 right-40 text-pink-300 text-sm" style="animation-delay: 1.5s;">✦</div>
             </div>
-            <p class="text-2xl text-purple-300 font-semibold">Ultimate Codes Guide 2025</p>
-            <div class="mt-4 text-lg text-blue-400">
-                <i class="fas fa-calendar-alt mr-2"></i>
-                Updated: july 2025
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="container mx-auto px-4 pb-12">
-            <!-- Introduction -->
-            <div class="glow-card p-8 mb-12 pulsing-border">
-                <h2 class="text-3xl font-bold text-purple-300 mb-4">
-                    <i class="fas fa-fire-alt mr-3"></i>
-                    Cursed Energy Awaits!
-                </h2>
-                <p class="text-gray-300 text-lg leading-relaxed">
-                    Jujutsu Kaisen fans rejoice! We've got a massive Roblox RPG experience where you'll meet some of your favorite characters from the franchise while claiming phenomenal goodies via the <span class="cursed-text font-bold">Jujutsu Infinite codes</span> to unlock free spins and more.
-                </p>
-            </div>
-
-            <!-- Active Codes -->
-            <div class="glow-card mb-12 overflow-hidden">
-                <div class="table-header">
-                    <h2 class="text-3xl font-bold">
-                        <i class="fas fa-star mr-3"></i>
-                        Active Jujutsu Infinite Codes
-                    </h2>
-                </div>
-                <div class="table-glow">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-1 text-center text-sm font-semibold bg-gray-800 text-gray-300">
-                        <div class="p-4 font-bold">CODE</div>
-                        <div class="p-4 font-bold">REWARD</div>
-                        <div class="p-4 font-bold">STATUS</div>
-                    </div>
-                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
-                        <div class="font-mono font-bold text-lg">SOUL_SOON_REWORK</div>
-                        <div class="text-yellow-400 font-semibold">50 Spins</div>
-                        <div><span class="new-badge">ACTIVE</span></div>
-                    </div>
-                    <div class="text-center p-6">
-                        <button class="code-button" onclick="copyCode('SOUL_SOON_REWORK')">
-                            <i class="fas fa-copy mr-2"></i>
-                            Copy Code
-                        </button>
-                    </div>
-                </div>
-            </div>
- <div class="glow-card mb-12 overflow-hidden">
-                <div class="table-header">
-                    <h2 class="text-3xl font-bold">
-                        <i class="fas fa-star mr-3"></i>
-                        Active Jujutsu Infinite Codes
-                    </h2>
-                </div>
-                <div class="table-glow">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-1 text-center text-sm font-semibold bg-gray-800 text-gray-300">
-                        <div class="p-4 font-bold">CODE</div>
-                        <div class="p-4 font-bold">REWARD</div>
-                        <div class="p-4 font-bold">STATUS</div>
-                    </div>
-                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
-                        <div class="font-mono font-bold text-lg">SOUL_SOON_REWORK</div>
-                        <div class="text-yellow-400 font-semibold">50 Spins</div>
-                        <div><span class="new-badge">ACTIVE</span></div>
-                    </div>
-                    <div class="text-center p-6">
-                        <button class="code-button" onclick="copyCode('SOUL_SOON_REWORK')">
-                            <i class="fas fa-copy mr-2"></i>
-                            Copy Code
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Expired Codes -->
-            <div class="glow-card mb-12 overflow-hidden">
-                <div class="table-header">
-                    <h2 class="text-3xl font-bold">
-                        <i class="fas fa-hourglass-end mr-3"></i>
-                        Expired Codes
-                    </h2>
-                </div>
-                <div class="table-glow">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-1 text-center text-sm font-semibold bg-gray-800 text-gray-300">
-                        <div class="p-4 font-bold">CODE</div>
-                        <div class="p-4 font-bold">REWARD</div>
-                        <div class="p-4 font-bold">STATUS</div>
-                    </div>
-                    
-                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
-                        <div class="font-mono font-bold">PROJECTION_20K</div>
-                        <div class="text-yellow-400">100 Spins</div>
-                        <div><span class="expired-badge">EXPIRED</span></div>
-                    </div>
-                    
-                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
-                        <div class="font-mono font-bold">PROJECTION_OUT</div>
-                        <div class="text-yellow-400">100 Spins</div>
-                        <div><span class="expired-badge">EXPIRED</span></div>
-                    </div>
-                    
-                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
-                        <div class="font-mono font-bold">PROJECTION_SOON</div>
-                        <div class="text-yellow-400">50 Spins</div>
-                        <div><span class="expired-badge">EXPIRED</span></div>
-                    </div>
-                    
-                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
-                        <div class="font-mono font-bold">THUNDER_GOD</div>
-                        <div class="text-yellow-400">100 Spins</div>
-                        <div><span class="expired-badge">EXPIRED</span></div>
-                    </div>
-                    
-                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
-                        <div class="font-mono font-bold">20K_FOLLOW_THUNDR</div>
-                        <div class="text-yellow-400">100 Spins</div>
-                        <div><span class="expired-badge">EXPIRED</span></div>
-                    </div>
-                    
-                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
-                        <div class="font-mono font-bold">THUNDER_SOON</div>
-                        <div class="text-yellow-400">50 Spins</div>
-                        <div><span class="expired-badge">EXPIRED</span></div>
-                    </div>
-                    
-                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
-                        <div class="font-mono font-bold">MECH_SHUTDOWN</div>
-                        <div class="text-yellow-400">30 Spins</div>
-                        <div><span class="expired-badge">EXPIRED</span></div>
-                    </div>
-                    
-                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
-                        <div class="font-mono font-bold">MECH_MAX</div>
-                        <div class="text-yellow-400">150 Spins</div>
-                        <div><span class="expired-badge">EXPIRED</span></div>
-                    </div>
-                    
-                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
-                        <div class="font-mono font-bold">MECH_SOON</div>
-                        <div class="text-yellow-400">25 Spins</div>
-                        <div><span class="expired-badge">EXPIRED</span></div>
-                    </div>
-                    
-                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
-                        <div class="font-mono font-bold">ANCIENT_CONSTRUCT</div>
-                        <div class="text-yellow-400">25 Spins</div>
-                        <div><span class="expired-badge">EXPIRED</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- How to Redeem -->
-            <div class="glow-card mb-12">
-                <div class="table-header">
-                    <h2 class="text-3xl font-bold">
-                        <i class="fas fa-cog mr-3"></i>
-                        How to Redeem Codes
-                    </h2>
-                </div>
-                <div class="p-8">
-                    <div class="step-card">
-                        <div class="step-number">1</div>
-                        <div class="ml-16">
-                            <h3 class="text-xl font-bold text-purple-300 mb-2">Launch the Game</h3>
-                            <p class="text-gray-300">Run <strong>Jujutsu Infinite</strong> in Roblox</p>
-                        </div>
-                    </div>
-                    
-                    <div class="step-card">
-                        <div class="step-number">2</div>
-                        <div class="ml-16">
-                            <h3 class="text-xl font-bold text-purple-300 mb-2">Open Customize Menu</h3>
-                            <p class="text-gray-300">Go to <strong>Customize</strong> via the main menu</p>
-                        </div>
-                    </div>
-                    
-                    <div class="step-card">
-                        <div class="step-number">3</div>
-                        <div class="ml-16">
-                            <h3 class="text-xl font-bold text-purple-300 mb-2">Find Code Input</h3>
-                            <p class="text-gray-300">Click on <strong>Redeem Code Here</strong> in the menu on the right</p>
-                        </div>
-                    </div>
-                    
-                    <div class="step-card">
-                        <div class="step-number">4</div>
-                        <div class="ml-16">
-                            <h3 class="text-xl font-bold text-purple-300 mb-2">Enter Code</h3>
-                            <p class="text-gray-300">Enter an active code into the <strong>text box</strong></p>
-                        </div>
-                    </div>
-                    
-                    <div class="step-card">
-                        <div class="step-number">5</div>
-                        <div class="ml-16">
-                            <h3 class="text-xl font-bold text-purple-300 mb-2">Claim Rewards</h3>
-                            <p class="text-gray-300">Click on the <strong>blue arrow icon</strong> to grab your free goodies</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Game Info -->
-            <div class="glow-card mb-12">
-                <div class="table-header">
-                    <h2 class="text-3xl font-bold">
-                        <i class="fas fa-gamepad mr-3"></i>
-                        About Jujutsu Infinite
-                    </h2>
-                </div>
-                <div class="p-8">
-                    <p class="text-gray-300 text-lg leading-relaxed mb-6">
-                        Jujutsu Infinite is an impressive Roblox RPG experience based on the hugely popular <em>Jujutsu Kaisen</em> series. Create a Jujutsu sorcerer with Skills and Innate Techniques of your choosing and dive into a thrilling story-driven adventure where you get to face many cursed spirits and challenging bosses.
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">
+                        Unlock a<br>
+                        world of<br>
+                        perks with<br>
+                        <span class="text-yellow-300">Nitro</span>
+                    </h1>
+                    <p class="text-xl mb-8 text-white opacity-90 max-w-md mx-auto lg:mx-0">
+                        Subscribe to Nitro to upgrade your emoji, personalize your profile, share bigger files, and so much more.
                     </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-purple-900 bg-opacity-30 p-6 rounded-lg">
-                            <h3 class="text-xl font-bold text-purple-300 mb-3">
-                                <i class="fas fa-magic mr-2"></i>
-                                Key Features
-                            </h3>
-                            <ul class="text-gray-300 space-y-2">
-                                <li><i class="fas fa-check text-green-400 mr-2"></i>Story-driven adventure</li>
-                                <li><i class="fas fa-check text-green-400 mr-2"></i>Character customization</li>
-                                <li><i class="fas fa-check text-green-400 mr-2"></i>Innate Techniques system</li>
-                                <li><i class="fas fa-check text-green-400 mr-2"></i>PvP combat mode</li>
-                            </ul>
+                </div>
+                
+                <div class="relative">
+                    <div class="floating-animation">
+                        <div class="w-80 h-80 mx-auto bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                            <i class="fab fa-discord text-8xl text-white"></i>
                         </div>
-                        <div class="bg-blue-900 bg-opacity-30 p-6 rounded-lg">
-                            <h3 class="text-xl font-bold text-blue-300 mb-3">
-                                <i class="fas fa-users mr-2"></i>
-                                Community
-                            </h3>
-                            <p class="text-gray-300 mb-4">Join thousands of players in this epic Jujutsu Kaisen experience!</p>
-                            <button class="code-button" onclick="openDiscord()">
-                                <i class="fab fa-discord mr-2"></i>
-                                Join Discord
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nitro Plans -->
+        <section class="py-20 bg-gray-900">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                    <!-- Nitro Basic -->
+                    <div class="plan-card bg-blue-600 rounded-3xl p-8 text-white">
+                        <h3 class="text-3xl font-black mb-6">NITRO BASIC</h3>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center">
+                                <i class="fas fa-upload text-yellow-300 mr-3"></i>
+                                <span>50MB uploads</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-smile text-yellow-300 mr-3"></i>
+                                <span>Custom emoji anywhere</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-300 mr-3"></i>
+                                <span>Unlimited Super Reactions</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-badge-check text-yellow-300 mr-3"></i>
+                                <span>Special Nitro badge on your profile</span>
+                            </div>
+                        </div>
+                        <button class="w-full bg-white text-blue-600 py-4 rounded-full font-bold hover:bg-gray-100 transition-colors">
+                            Subscribe
+                        </button>
+                    </div>
+                    
+                    <!-- Nitro -->
+                    <div class="plan-card bg-purple-600 rounded-3xl p-8 text-white relative">
+                        <div class="absolute -top-3 right-4 bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            MOST POPULAR
+                        </div>
+                        <h3 class="text-3xl font-black mb-6">NITRO</h3>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center">
+                                <i class="fas fa-upload text-yellow-300 mr-3"></i>
+                                <span>500MB uploads</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-smile text-yellow-300 mr-3"></i>
+                                <span>Custom emoji anywhere</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-star text-yellow-300 mr-3"></i>
+                                <span>Unlimited Super Reactions</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-video text-yellow-300 mr-3"></i>
+                                <span>HD video streaming</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-rocket text-yellow-300 mr-3"></i>
+                                <span>2 Server Boosts</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-user text-yellow-300 mr-3"></i>
+                                <span>Custom profiles and more!</span>
+                            </div>
+                        </div>
+                        <button class="w-full bg-white text-purple-600 py-4 rounded-full font-bold hover:bg-gray-100 transition-colors">
+                            Subscribe
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Nitro Perks -->
+        <section class="py-20 bg-white text-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl md:text-5xl font-black text-center mb-16">Popular Nitro Perks</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold mb-4">From clips to pics, share away with bigger file uploads</h3>
+                        <div class="bg-gray-100 rounded-lg p-8">
+                            <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/682ae563de72fc300a99184d_Bigger%20File%20Uploads%20Message%20%2B%20Chat%20Input%20400X191.svg" alt="Bigger file uploads" class="w-full max-w-sm mx-auto">
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold mb-4">Stream apps and games in sweet, sweet HD</h3>
+                        <div class="bg-gray-100 rounded-lg p-8">
+                            <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/65a8e745e5817574c745fcc0_Stream%20apps.svg" alt="HD streaming" class="w-full max-w-sm mx-auto">
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold mb-4">Hype and meme with custom emoji anywhere</h3>
+                        <div class="bg-gray-100 rounded-lg p-8">
+                            <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/65a8e7682eab54a3196def6e_Project-Speedy-Emoji-Static.svg" alt="Custom emoji" class="w-full max-w-sm mx-auto">
+                        </div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold mb-4">Unlock perks for your communities with 2 Server Boosts</h3>
+                        <div class="bg-gray-100 rounded-lg p-8">
+                            <img src="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/633bf534f1f0854923a8e9c1_Frame%20881.svg" alt="Server boosts" class="w-full max-w-sm mx-auto">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <button class="bg-gray-900 text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
+                        Show all perks
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Comparison Table -->
+        <section class="py-20 bg-gray-100">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl md:text-5xl font-black text-center mb-16 text-gray-900">
+                    Pick the plan that works best for you
+                </h2>
+                
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                    <div class="grid grid-cols-3 bg-gray-50 p-6 border-b">
+                        <div class="font-bold text-lg text-gray-900">Features</div>
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-gray-900">NITRO BASIC</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-lg font-bold text-gray-900">NITRO</div>
+                            <div class="text-xs bg-pink-500 text-white px-2 py-1 rounded-full inline-block mt-1">MOST POPULAR</div>
+                        </div>
+                    </div>
+                    
+                    <div class="divide-y divide-gray-200">
+                        <div class="grid grid-cols-3 p-4 items-center">
+                            <div class="text-gray-900">Unlimited Super Reactions</div>
+                            <div class="text-center"><i class="fas fa-check text-green-500"></i></div>
+                            <div class="text-center"><i class="fas fa-check text-green-500"></i></div>
+                        </div>
+                        <div class="grid grid-cols-3 p-4 items-center">
+                            <div class="text-gray-900">Custom emoji anywhere and make them animated</div>
+                            <div class="text-center"><i class="fas fa-check text-green-500"></i></div>
+                            <div class="text-center"><i class="fas fa-check text-green-500"></i></div>
+                        </div>
+                        <div class="grid grid-cols-3 p-4 items-center">
+                            <div class="text-gray-900">Custom stickers anywhere</div>
+                            <div class="text-center"><i class="fas fa-check text-green-500"></i></div>
+                            <div class="text-center"><i class="fas fa-check text-green-500"></i></div>
+                        </div>
+                        <div class="grid grid-cols-3 p-4 items-center">
+                            <div class="text-gray-900">HD streaming</div>
+                            <div class="text-center"><i class="fas fa-times text-gray-300"></i></div>
+                            <div class="text-center"><i class="fas fa-check text-green-500"></i></div>
+                        </div>
+                        <div class="grid grid-cols-3 p-4 items-center">
+                            <div class="text-gray-900">2 Free Boosts + 30% off extra Boosts</div>
+                            <div class="text-center"><i class="fas fa-times text-gray-300"></i></div>
+                            <div class="text-center"><i class="fas fa-check text-green-500"></i></div>
+                        </div>
+                        <div class="grid grid-cols-3 p-4 items-center">
+                            <div class="text-gray-900">Animated avatar, banner, and profile theme</div>
+                            <div class="text-center"><i class="fas fa-times text-gray-300"></i></div>
+                            <div class="text-center"><i class="fas fa-check text-green-500"></i></div>
+                        </div>
+                        <div class="grid grid-cols-3 p-4 items-center">
+                            <div class="text-gray-900">Custom per-server profiles</div>
+                            <div class="text-center"><i class="fas fa-times text-gray-300"></i></div>
+                            <div class="text-center"><i class="fas fa-check text-green-500"></i></div>
+                        </div>
+                        <div class="grid grid-cols-3 p-4 items-center">
+                            <div class="text-gray-900">Join up to 200 servers</div>
+                            <div class="text-center"><i class="fas fa-times text-gray-300"></i></div>
+                            <div class="text-center"><i class="fas fa-check text-green-500"></i></div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 p-6 bg-gray-50 border-t">
+                        <div></div>
+                        <div class="text-center">
+                            <button class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-colors">
+                                Subscribe
+                            </button>
+                        </div>
+                        <div class="text-center">
+                            <button class="bg-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors">
+                                Subscribe
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </section>
 
-        <!-- Footer -->
-        <footer class="copyright-footer text-center py-8 px-4">
-            <div class="container mx-auto">
-                <div class="flex flex-col items-center space-y-4">
-                    <div class="cursed-text text-2xl font-bold">JUJUTSU INFINITE CODES</div>
-                    <div class="flex items-center space-x-6 text-gray-400">
-                        <div class="flex items-center">
-                            <i class="fas fa-copyright mr-2"></i>
-                            <span>2025 All Rights Reserved</span>
-                        </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-code mr-2"></i>
-                            <span>Ultimate Codes Guide</span>
+        <!-- FAQ Section -->
+        <section class="py-20 bg-gray-900">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-black text-center mb-16 text-white">Frequently Asked Questions</h2>
+                
+                <div class="space-y-4">
+                    <div class="faq-item">
+                        <button class="w-full flex justify-between items-center py-6 text-left focus:outline-none" onclick="toggleFAQ(this)">
+                            <span class="text-xl font-semibold text-white">What's Nitro?</span>
+                            <i class="fas fa-plus faq-icon text-white transition-transform"></i>
+                        </button>
+                        <div class="faq-content pb-6">
+                            <p class="text-gray-300 leading-relaxed">
+                                Nitro is a subscription service that unlocks features and perks across Discord, giving you more ways to have fun and express yourself.
+                            </p>
                         </div>
                     </div>
-                    <div class="flex items-center space-x-4 text-sm text-gray-500">
-                        <span>Built with</span>
-                        <i class="fas fa-heart text-red-500"></i>
-                        <span>for the Jujutsu Kaisen community</span>
+                    
+                    <div class="faq-item">
+                        <button class="w-full flex justify-between items-center py-6 text-left focus:outline-none" onclick="toggleFAQ(this)">
+                            <span class="text-xl font-semibold text-white">How does Nitro work?</span>
+                            <i class="fas fa-plus faq-icon text-white transition-transform"></i>
+                        </button>
+                        <div class="faq-content pb-6">
+                            <p class="text-gray-300 leading-relaxed">
+                                When you subscribe to Nitro, you get access to features that were previously locked for you - like using custom emoji anywhere, uploading bigger files, setting a custom video background, and more. When the subscription ends, you'll lose access to the perks.
+                            </p>
+                        </div>
                     </div>
-                    <div class="text-xs text-gray-600">
-                        This website is not affiliated with Jujutsu Kaisen or Roblox Corporation
+                    
+                    <div class="faq-item">
+                        <button class="w-full flex justify-between items-center py-6 text-left focus:outline-none" onclick="toggleFAQ(this)">
+                            <span class="text-xl font-semibold text-white">What's the difference between Nitro and Nitro Basic?</span>
+                            <i class="fas fa-plus faq-icon text-white transition-transform"></i>
+                        </button>
+                        <div class="faq-content pb-6">
+                            <p class="text-gray-300 leading-relaxed">
+                                Nitro is our most popular plan that unlocks access to all available Nitro perks, and Nitro Basic includes a selection of the most-loved Nitro perks that help you better express yourself. See the comparison chart above for a full breakdown!
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="w-full flex justify-between items-center py-6 text-left focus:outline-none" onclick="toggleFAQ(this)">
+                            <span class="text-xl font-semibold text-white">How much does Nitro cost?</span>
+                            <i class="fas fa-plus faq-icon text-white transition-transform"></i>
+                        </button>
+                        <div class="faq-content pb-6">
+                            <p class="text-gray-300 leading-relaxed">
+                                Cost varies depending on your country and plan. You can check Nitro prices under User Settings > Nitro in either the desktop or mobile apps.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="w-full flex justify-between items-center py-6 text-left focus:outline-none" onclick="toggleFAQ(this)">
+                            <span class="text-xl font-semibold text-white">Where can I buy Nitro?</span>
+                            <i class="fas fa-plus faq-icon text-white transition-transform"></i>
+                        </button>
+                        <div class="faq-content pb-6">
+                            <p class="text-gray-300 leading-relaxed">
+                                You can purchase Nitro by visiting the Nitro tab in User Settings, or in the Nitro page under Home on desktop. On mobile, visit User Settings by tapping your user icon in the bottom bar, then select Get Nitro.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </footer>
+        </section>
     </div>
 
-    <script>
-        // Generate cursed energy particles
-        function createEnergyParticles() {
-            const container = document.getElementById('cursedEnergy');
-            const particleCount = window.innerWidth < 768 ? 30 : 50;
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fab fa-discord text-3xl text-purple-400"></i>
+                        <span class="font-bold text-2xl">Discord</span>
+                    </div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="text-gray-400">Language</span>
+                        <select class="bg-gray-800 text-white px-3 py-1 rounded">
+                            <option>English (US)</option>
+                            <option>Español</option>
+                            <option>Français</option>
+                            <option>Deutsch</option>
+                        </select>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-tiktok text-xl"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Product</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Download</a></li>
+                        <li><button onclick="showPage('nitro')" class="text-gray-400 hover:text-white">Nitro</button></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Status</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">App Directory</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Jobs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Brand</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Newsroom</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">College</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Support</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Safety</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'energy-particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 8 + 's';
-                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
-                container.appendChild(particle);
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <i class="fab fa-discord text-2xl text-purple-400"></i>
+                    <span class="font-bold text-xl">Discord</span>
+                </div>
+                <button class="bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-700 transition-colors">
+                    Sign up
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId + '-page').classList.add('active');
+            
+            // Close mobile menu if open
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // FAQ Toggle
+        function toggleFAQ(button) {
+            const faqItem = button.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
             }
         }
 
-        // Copy code to clipboard
-        function copyCode(code) {
-            navigator.clipboard.writeText(code).then(() => {
-                showNotification();
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = code;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showNotification();
-            });
-        }
-
-        // Show notification
-        function showNotification() {
-            const notification = document.getElementById('notification');
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        // Open Discord
-        function openDiscord() {
-            window.open('https://discord.gg/jujutsuinfinite', '_blank');
-        }
-
-        // Add hover effects to cards
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.glow-card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px) scale(1.02)';
-                });
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
-        });
-
-        // Smooth scrolling for internal links
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Initialize particles when page loads
-        window.addEventListener('load', createEnergyParticles);
-        
-        // Regenerate particles on resize
-        window.addEventListener('resize', function() {
-            const container = document.getElementById('cursedEnergy');
-            container.innerHTML = '';
-            createEnergyParticles();
-        });
-
-        // Add click effect to code buttons
-        document.querySelectorAll('.code-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const ripple = document.createElement('span');
-                ripple.style.position = 'absolute';
-                ripple.style.borderRadius = '50%';
-                ripple.style.background = 'rgba(255, 255, 255, 0.6)';
-                ripple.style.transform = 'scale(0)';
-                ripple.style.animation = 'ripple 0.6s linear';
-                ripple.style.left = (e.clientX - e.target.offsetLeft) + 'px';
-                ripple.style.top = (e.clientY - e.target.offsetTop) + 'px';
-                
-                this.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            });
-        });
-
-        // Add CSS for ripple effect
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
+            });
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards
+        document.querySelectorAll('.feature-card, .plan-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const menuButton = document.querySelector('[onclick="toggleMobileMenu()"]');
+            
+            if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+                mobileMenu.classList.remove('active');
             }
-        `;
-        document.head.appendChild(style);
+        });
+
+        // Add parallax effect to hero sections
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.floating-animation');
+            
+            parallaxElements.forEach(element => {
+                const speed = 0.1;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add any initialization code here
+            console.log('Discord clone loaded successfully!');
+        });
     </script>
 </body>
 </html>
