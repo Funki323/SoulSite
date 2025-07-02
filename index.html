@@ -3,842 +3,712 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jujutsu Infinite Scripts - Auto, Kill Aura, Get All Skills</title>
+    <title>Jujutsu Infinite Codes - Ultimate Guide 2025</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-purple: #8b5cf6;
-            --secondary-pink: #ec4899;
-            --dark-bg: #0f0f23;
-            --card-bg: rgba(139, 92, 246, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary-purple: #8B5CF6;
+            --cursed-red: #DC2626;
+            --dark-purple: #5B21B6;
+            --neon-blue: #00F5FF;
+            --energy-pink: #FF1493;
         }
 
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #0f0a1a 0%, #1a0d2e 25%, #2d1b3d 50%, #1a0d2e 75%, #0f0a1a 100%);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Animated Background */
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: linear-gradient(45deg, #0f0f23, #1a1a2e, #16213e, #0f3460, #533483);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Particle Container */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        /* Floating Particles CSS Animation */
-        .floating-particles {
+        .cursed-energy {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
+            z-index: 1;
         }
 
-        .particle {
+        .energy-particle {
             position: absolute;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.8) 0%, rgba(236, 72, 153, 0.4) 50%, transparent 100%);
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, var(--neon-blue) 0%, transparent 70%);
             border-radius: 50%;
-            animation: float 20s infinite linear;
+            animation: float 8s infinite ease-in-out;
+            box-shadow: 0 0 15px var(--neon-blue);
         }
 
-        .particle:nth-child(odd) {
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.8) 0%, rgba(139, 92, 246, 0.4) 50%, transparent 100%);
-            animation-duration: 25s;
+        .energy-particle:nth-child(2n) {
+            background: radial-gradient(circle, var(--energy-pink) 0%, transparent 70%);
+            box-shadow: 0 0 15px var(--energy-pink);
+            animation-delay: -2s;
+        }
+
+        .energy-particle:nth-child(3n) {
+            background: radial-gradient(circle, var(--primary-purple) 0%, transparent 70%);
+            box-shadow: 0 0 15px var(--primary-purple);
+            animation-delay: -4s;
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh) rotate(360deg);
-                opacity: 0;
-            }
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            25% { transform: translateY(-100px) rotate(90deg); opacity: 1; }
+            50% { transform: translateY(-200px) rotate(180deg); opacity: 0.6; }
+            75% { transform: translateY(-300px) rotate(270deg); opacity: 1; }
         }
 
-        /* Glowing Effects */
-        .glow-text {
-            text-shadow: 0 0 10px var(--primary-purple), 0 0 20px var(--primary-purple), 0 0 30px var(--primary-purple);
+        .cursed-text {
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(45deg, var(--primary-purple), var(--neon-blue), var(--energy-pink));
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-shift 3s ease infinite;
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
         }
 
-        .script-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
-        .script-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .script-card:hover::before {
-            left: 100%;
-        }
-
-        .script-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.3);
-            border-color: var(--primary-purple);
-        }
-
-        .copy-btn {
-            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-pink));
+        .glow-card {
+            background: rgba(13, 6, 30, 0.9);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 50px rgba(139, 92, 246, 0.2);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .copy-btn::before {
+        .glow-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-purple), var(--neon-blue), var(--energy-pink), var(--primary-purple));
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .glow-card:hover::before {
+            opacity: 1;
+        }
+
+        .glow-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 80px rgba(139, 92, 246, 0.4);
+        }
+
+        .code-button {
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            padding: 12px 24px;
+            font-weight: 600;
+            font-family: 'Orbitron', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .code-button::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.4s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
         }
 
-        .copy-btn:hover::before {
+        .code-button:hover::before {
             left: 100%;
         }
 
-        .copy-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.4);
+        .code-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
         }
 
-        pre {
-            background: rgba(0, 0, 0, 0.4);
-            border-left: 4px solid var(--primary-purple);
-            position: relative;
+        .discord-logo {
+            color: #7289da;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .status-badge {
-            background: linear-gradient(45deg, #10b981, #34d399);
+        .discord-logo:hover {
+            color: #5b6eae;
+            transform: scale(1.2) rotate(5deg);
+            text-shadow: 0 0 20px #7289da;
+        }
+
+        .pulsing-border {
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(139, 92, 246, 0.3); }
+            50% { border-color: rgba(139, 92, 246, 0.8); }
+        }
+
+        .table-glow {
+            background: rgba(13, 6, 30, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+            color: white;
+            font-weight: 700;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .table-row {
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .table-row:hover {
+            background: rgba(139, 92, 246, 0.1);
+            transform: scale(1.02);
+        }
+
+        .expired-badge {
+            background: linear-gradient(135deg, var(--cursed-red), #991b1b);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .new-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
             0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
+            50% { opacity: 0.7; }
         }
 
-        /* Header Title Animation */
-        .main-title {
-            font-family: 'Orbitron', monospace;
-            background: linear-gradient(45deg, #8b5cf6, #ec4899, #06b6d4, #8b5cf6);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: titleGradient 3s ease infinite;
+        .title-glow {
+            text-shadow: 0 0 40px rgba(139, 92, 246, 0.8);
+            animation: title-pulse 3s ease-in-out infinite;
         }
 
-        @keyframes titleGradient {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        @keyframes title-pulse {
+            0%, 100% { text-shadow: 0 0 40px rgba(139, 92, 246, 0.8); }
+            50% { text-shadow: 0 0 60px rgba(139, 92, 246, 1), 0 0 80px rgba(0, 245, 255, 0.6); }
         }
 
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 12px;
+        .copyright-footer {
+            background: linear-gradient(135deg, rgba(13, 6, 30, 0.95), rgba(26, 13, 46, 0.95));
+            border-top: 2px solid rgba(139, 92, 246, 0.3);
+            backdrop-filter: blur(20px);
         }
 
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, var(--primary-purple), var(--secondary-pink));
-            border-radius: 6px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(45deg, var(--secondary-pink), var(--primary-purple));
-        }
-
-        /* Loading Animation */
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary-purple);
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Notification Styles */
         .notification {
-            background: linear-gradient(135deg, #10b981, #34d399);
-            border-left: 4px solid #059669;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
         }
 
-        /* Footer Styles */
-        .footer-content {
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .notification.show {
+            transform: translateX(0);
         }
 
-        /* Responsive Design */
+        .floating-orb {
+            position: fixed;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
+            animation: orb-float 20s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-orb:nth-child(2) {
+            animation-delay: -10s;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.3) 0%, transparent 70%);
+        }
+
+        @keyframes orb-float {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            25% { transform: translate(100px, -100px) scale(1.2); }
+            50% { transform: translate(-100px, -200px) scale(0.8); }
+            75% { transform: translate(-150px, -50px) scale(1.1); }
+        }
+
+        .step-card {
+            background: rgba(13, 6, 30, 0.9);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 15px;
+            padding: 24px;
+            margin: 16px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
         @media (max-width: 768px) {
-            .script-card:hover {
-                transform: translateY(-4px) scale(1.01);
+            .energy-particle {
+                width: 4px;
+                height: 4px;
             }
             
-            .main-title {
-                font-size: 2.5rem;
+            .floating-orb {
+                width: 100px;
+                height: 100px;
             }
         }
-
-        /* Interactive Glow Effect */
-        .interactive-glow {
-            position: relative;
-        }
-
-        .interactive-glow:hover {
-            filter: drop-shadow(0 0 15px var(--primary-purple));
-        }
-
-        /* Custom Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        /* Delay animations for staggered effect */
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
     </style>
 </head>
-<body class="text-white">
-    <!-- Animated Background -->
-    <div class="animated-bg"></div>
+<body>
+    <!-- Cursed Energy Particles -->
+    <div class="cursed-energy" id="cursedEnergy"></div>
     
-    <!-- Floating Particles -->
-    <div class="floating-particles" id="floating-particles"></div>
+    <!-- Floating Orbs -->
+    <div class="floating-orb" style="top: 10%; left: 10%;"></div>
+    <div class="floating-orb" style="top: 60%; right: 15%;"></div>
 
-    <div class="container mx-auto px-4 py-8 max-w-6xl relative z-10">
-        <!-- Header -->
-        <div class="text-center mb-12 fade-in-up">
-            <h1 class="main-title text-6xl font-bold mb-6 glow-text">
-                Jujutsu Infinite Script
-            </h1>
-            <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                <i class="fas fa-magic mr-2"></i>
-                The Ultimate Collection of Roblox Jujutsu Infinite Scripts & Hacks
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-                <div class="script-card rounded-lg p-4 interactive-glow delay-100">
-                    <div class="text-sm text-gray-300">Developer</div>
-                    <div class="font-semibold text-purple-300">Soul, DiscoBarn, Salt</div>
-                </div>
-                <div class="script-card rounded-lg p-4 interactive-glow delay-200">
-                    <div class="text-sm text-gray-300">Status</div>
-                    <div class="status-badge text-black px-2 py-1 rounded text-sm font-bold">
-                        <i class="fas fa-shield-alt mr-1"></i>UNDETECTED
-                    </div>
-                </div>
-                <div class="script-card rounded-lg p-4 interactive-glow delay-300">
-                    <div class="text-sm text-gray-300">Updated</div>
-                    <div class="font-semibold text-green-400">7.02.25</div>
-                </div>
-                <div class="script-card rounded-lg p-4 interactive-glow delay-400">
-                    <div class="text-sm text-gray-300">Version</div>
-                    <div class="font-semibold text-blue-400">1.2.9</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Description -->
-        <div class="script-card rounded-lg p-8 mb-12 fade-in-up interactive-glow">
-            <h2 class="text-3xl font-bold mb-6 text-purple-300 glow-text">
-                <i class="fas fa-info-circle mr-3"></i>About Jujutsu Infinite Script
-            </h2>
-            <div class="space-y-4 text-gray-300 leading-relaxed">
-                <p>
-                    <i class="fas fa-star text-yellow-400 mr-2"></i>
-                    Sharing with you one of the best free scripts and hacks on Jujutsu Infinite Roblox that you can get from this page. Simple and versatile script from the famous developer Soul for the game Jujutsu Infinite from the Roblox universe.
-                </p>
-                <p>
-                    <i class="fas fa-rocket text-blue-400 mr-2"></i>
-                    Not bad functions with which you can get unlimited opportunities in the game, such as <span class="text-purple-400 font-semibold">Auto Mobs</span>, <span class="text-pink-400 font-semibold">Kill Aura</span>, <span class="text-green-400 font-semibold">Get All Skills</span>.
-                </p>
-                <p>
-                    <i class="fas fa-trophy text-orange-400 mr-2"></i>
-                    Using these features and scripts you will have more gaming opportunities unlike your friends and other players, you will be able to raise your game rank faster and improve your character. The game Jujutsu Infinite on the Roblox platform has already existed for more than two years and today it received another update, online is more than 400 thousand players.
-                </p>
-            </div>
-        </div>
-
-        <!-- Scripts Collection -->
-        <div class="space-y-8">
-            <!-- Script 1 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-code mr-2"></i>Script No Key jujutsu infinite - Auto Farm GUI SolixHub
-                    </h3>
-                    <button onclick="copyToClipboard('script1')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script1" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/debunked69/Solixreworkkeysystem/refs/heads/main/solix%20new%20keyui.lua"))()</code></pre>
-            </div>
-
-            <!-- Script 2 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-code mr-2"></i>Jujutsu Infinite Script - Auto Farm, Auto Farm Chests
-                    </h3>
-                    <button onclick="copyToClipboard('script2')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script2" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e7d06aa370f8abb9e1a9bd5bd9c80c7d.lua"))()</code></pre>
-            </div>
-
-            <!-- Script 3 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-code mr-2"></i>Get Script Jujutsu Infinite - Noble Hub
-                    </h3>
-                    <button onclick="copyToClipboard('script3')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script3" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/21cecfc256321e341fbe9a0a2df5a564.lua"))()</code></pre>
-            </div>
-
-            <!-- Script 4 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-code mr-2"></i>Get New PintoHub Script Jujutsu Infinite
-                    </h3>
-                    <button onclick="copyToClipboard('script4')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <div class="text-yellow-400 text-sm mb-2 font-semibold">
-                    <i class="fas fa-key mr-2"></i>24h KEY [free version]
-                </div>
-                <pre id="script4" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/justinbieberreal/PintoHub/refs/heads/main/PintoHub.lua"))()</code></pre>
-            </div>
-
-            <!-- Script 5 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-code mr-2"></i>Jujutsu Infinite New Script - Auto Farm, God Mode- NOT WORKING
-                    </h3>
-                    <button onclick="copyToClipboard('script5')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script5" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/nuIIism/limitless/main/main.lua"))()</code></pre>
-            </div>
-
-            <!-- Script 6 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-code mr-2"></i>Jujutsu Infinite New Script - Stingray Boss Farm (UPDATED)
-                    </h3>
-                    <button onclick="copyToClipboard('script6')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script6" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>getgenv().Webhook = "https://yourdiscordwebhook.com" -- Optional
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Nebula-Manta/Stingray/refs/heads/main/JJI/BossFarm.lua"))()
-
--- || This script is open source, view source code at: https://raw.githubusercontent.com/Nebula-Manta/Stingray/refs/heads/main/JJI/BossFarm.lua, DM me if you have any questions about the source code || --</code></pre>
-            </div>
-
-            <!-- Script 7 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-code mr-2"></i>Get Jujutsu Infinite Script - Auto Farm, Gamepass, Boss Raid
-                    </h3>
-                    <button onclick="copyToClipboard('script7')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script7" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet(('https://pastefy.app/AQW5tTyu/raw'),true))()</code></pre>
-            </div>
-
-            <!-- Script 8 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-mobile-alt mr-2"></i>DzHub Jujutsu Infinite Roblox Mobile Script
-                    </h3>
-                    <button onclick="copyToClipboard('script8')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script8" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/Dexz00/DzHub/refs/heads/main/KeySystem"))()</code></pre>
-            </div>
-
-            <!-- Script 9 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-code mr-2"></i>Script Jujutsu Infinite 2025 Pastebin - Limitless Hub
-                    </h3>
-                    <button onclick="copyToClipboard('script9')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script9" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet("https://paste.ee/r/hfHyO"))()</code></pre>
-            </div>
-
-            <!-- Script 10 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-mobile-alt mr-2"></i>Script Mobile Jujutsu Infinite - Rinns Hub
-                    </h3>
-                    <button onclick="copyToClipboard('script10')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script10" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/SkibidiCen/MainMenu/main/Code"))()</code></pre>
-            </div>
-
-            <!-- Script 11 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-fire mr-2"></i>Dexz0 Hub Jujutsu Infinite - Insta Kill, OP 8,5 MILLION XP, Bypass Level 1000
-                    </h3>
-                    <button onclick="copyToClipboard('script11')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script11" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/Dexz00/DzHub/refs/heads/main/Jujutsu%20Infinite"))()</code></pre>
-            </div>
-
-            <!-- Script 12 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-code mr-2"></i>Jujutsu Infinite Imp Hub script - Farm Mobs, Instant Kill, Kill Aura
-                    </h3>
-                    <button onclick="copyToClipboard('script12')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script12" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet('https://raw.githubusercontent.com/godor1010/godor/refs/heads/main/jujutsu_infinite'))()</code></pre>
-            </div>
-
-            <!-- Script 13 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-unlock mr-2"></i>Jujutsu Infinite Script GUI No Key - Inf Cash, Kill Aura, GodMode
-                    </h3>
-                    <button onclick="copyToClipboard('script13')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script13" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/IAmJamal10/Scripts/refs/heads/main/JujutsuInfinite"))()</code></pre>
-            </div>
-
-            <!-- Script 14 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-code mr-2"></i>Get Script Jujutsu Infinite Pastebin
-                    </h3>
-                    <button onclick="copyToClipboard('script14')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script14" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/ToraScript/Script/refs/heads/main/JujutsuInfinite"))()</code></pre>
-            </div>
-
-            <!-- Script 15 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-bolt mr-2"></i>Jujutsu Infinite Roblox Script NSHub - Fast Kill Aura, Inf Skills and More
-                    </h3>
-                    <button onclick="copyToClipboard('script15')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script15" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/OhhMyGehlee/Infinite/refs/heads/main/All"))()</code></pre>
-            </div>
-
-            <!-- Script 16 -->
-            <div class="script-card rounded-lg p-6 fade-in-up interactive-glow">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-purple-300">
-                        <i class="fas fa-tachometer-alt mr-2"></i>Speed Hub Jujutsu Infinite Auto Farm Script
-                    </h3>
-                    <button onclick="copyToClipboard('script16')" class="copy-btn px-4 py-2 rounded-lg text-sm font-semibold">
-                        <i class="fas fa-copy mr-2"></i>Copy
-                    </button>
-                </div>
-                <pre id="script16" class="p-4 rounded-lg overflow-x-auto text-sm font-mono"><code>loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Script-Games/refs/heads/main/Jujutsu%20Infinite.lua"))()</code></pre>
-            </div>
-        </div>
-
-        <!-- Download Section -->
-        <div class="script-card rounded-lg p-8 mt-12 text-center fade-in-up interactive-glow">
-            <h2 class="text-3xl font-bold mb-6 text-purple-300 glow-text">
-                <i class="fas fa-download mr-3"></i>Free Download Jujutsu Infinite Script - Auto, Kill Aura, Get All Skills
-            </h2>
-            <p class="text-yellow-400 mb-6 font-semibold">
-                <i class="fas fa-lock mr-2"></i>Only authorized users can download files. Please Log in or Register on the website.
-            </p>
-            
-            <div class="mb-8">
-                <h3 class="text-xl font-semibold mb-4 text-pink-300">
-                    <i class="fas fa-bell mr-2"></i>Subscribe to the news Jujutsu Infinite Script - Auto, Kill Aura, Get All Skills
-                </h3>
-                <p class="text-gray-300 mb-6">If the news changes, you will receive an E-mail notification.</p>
-                <button class="bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
-                    <i class="fas fa-bell mr-2"></i>Subscribe Now SOON
-                </button>
-                <p class="text-sm text-gray-400 mt-3">
-                    <i class="fas fa-users mr-2"></i>Already subscribed: <span class="text-green-400 font-semibold">0</span>
-                </p>
-            </div>
-        </div>
-
-        <!-- Safety Notice -->
-        <div class="script-card rounded-lg p-6 mt-8 fade-in-up">
-            <h3 class="text-xl font-bold mb-4 text-yellow-300">
-                <i class="fas fa-exclamation-triangle mr-2"></i>Important Safety Notice
-            </h3>
-            <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-300">
-                <div class="space-y-2">
-                    <p><i class="fas fa-shield-alt text-green-400 mr-2"></i>Use scripts responsibly and at your own risk</p>
-                    <p><i class="fas fa-search text-blue-400 mr-2"></i>Always verify script sources before execution</p>
-                </div>
-                <div class="space-y-2">
-                    <p><i class="fas fa-user-secret text-purple-400 mr-2"></i>Consider using alternate accounts for testing</p>
-                    <p><i class="fas fa-clock text-orange-400 mr-2"></i>Scripts may become outdated after game updates</p>
-                </div>
-            </div>
-        </div>
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <i class="fas fa-copy mr-2"></i>
+        Code copied to clipboard!
     </div>
 
-    <!-- Footer -->
-    <footer class="footer-content mt-16 py-8">
-        <div class="container mx-auto px-4 text-center">
-            <div class="mb-6">
-                <div class="text-2xl font-bold text-purple-300 mb-2">
-                    <i class="fas fa-code mr-2"></i>Jujutsu Infinite Scripts Hub
-                </div>
-                <p class="text-gray-400">Your ultimate destination for Roblox Jujutsu Infinite scripts and hacks</p>
+    <div class="relative z-10">
+        <!-- Header -->
+        <header class="text-center py-12 px-4">
+            <div class="flex justify-center items-center mb-6">
+                <h1 class="text-6xl font-black cursed-text title-glow mr-4">JUJUTSU INFINITE</h1>
+                <i class="fab fa-discord discord-logo" onclick="openDiscord()"></i>
             </div>
-            
-            <div class="grid md:grid-cols-3 gap-8 mb-8">
-                <div>
-                    <h4 class="text-lg font-semibold text-pink-300 mb-3">
-                        <i class="fas fa-rocket mr-2"></i>Features
-                    </h4>
-                    <ul class="space-y-1 text-sm text-gray-400">
-                        <li>Auto Farm Scripts</li>
-                        <li>Kill Aura & God Mode</li>
-                        <li>Unlimited Skills</li>
-                        <li>Boss Farm Automation</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold text-blue-300 mb-3">
-                        <i class="fas fa-users mr-2"></i>Community
-                    </h4>
-                    <ul class="space-y-1 text-sm text-gray-400">
-                        <li>400k+ Active Players</li>
-                        <li>Regular Updates</li>
-                        <li>Free Scripts</li>
-                        <li>24/7 Support</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold text-green-300 mb-3">
-                        <i class="fas fa-shield-alt mr-2"></i>Security
-                    </h4>
-                    <ul class="space-y-1 text-sm text-gray-400">
-                        <li>Undetected Scripts</li>
-                        <li>Safe Execution</li>
-                        <li>Regular Testing</li>
-                        <li>Anti-Ban Protection</li>
-                    </ul>
-                </div>
+            <p class="text-2xl text-purple-300 font-semibold">Ultimate Codes Guide 2025</p>
+            <div class="mt-4 text-lg text-blue-400">
+                <i class="fas fa-calendar-alt mr-2"></i>
+                Updated: july 2025
             </div>
-            
-            <div class="border-t border-gray-600 pt-6">
-                <p class="text-gray-400 text-sm">
-                    <i class="fas fa-copyright mr-2"></i>
-                    Copyright © 2025 Disco Cheats Hub. All rights reserved.
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 pb-12">
+            <!-- Introduction -->
+            <div class="glow-card p-8 mb-12 pulsing-border">
+                <h2 class="text-3xl font-bold text-purple-300 mb-4">
+                    <i class="fas fa-fire-alt mr-3"></i>
+                    Cursed Energy Awaits!
+                </h2>
+                <p class="text-gray-300 text-lg leading-relaxed">
+                    Jujutsu Kaisen fans rejoice! We've got a massive Roblox RPG experience where you'll meet some of your favorite characters from the franchise while claiming phenomenal goodies via the <span class="cursed-text font-bold">Jujutsu Infinite codes</span> to unlock free spins and more.
                 </p>
-                <p class="text-xs text-gray-500 mt-2">
-                    Developed by Soul, DiscoBarn, Salt | Enhanced with particle effects and modern design
-                </p>
-                <div class="flex justify-center space-x-6 mt-4 text-xs text-gray-500">
-                    <span><i class="fas fa-clock mr-1"></i>Last Updated: March 20, 2025</span>
-                    <span><i class="fas fa-code-branch mr-1"></i>Version 1.2.9</span>
-                    <span><i class="fas fa-globe mr-1"></i>Global Access</span>
+            </div>
+
+            <!-- Active Codes -->
+            <div class="glow-card mb-12 overflow-hidden">
+                <div class="table-header">
+                    <h2 class="text-3xl font-bold">
+                        <i class="fas fa-star mr-3"></i>
+                        Active Jujutsu Infinite Codes
+                    </h2>
+                </div>
+                <div class="table-glow">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-1 text-center text-sm font-semibold bg-gray-800 text-gray-300">
+                        <div class="p-4 font-bold">CODE</div>
+                        <div class="p-4 font-bold">REWARD</div>
+                        <div class="p-4 font-bold">STATUS</div>
+                    </div>
+                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
+                        <div class="font-mono font-bold text-lg">SOUL_SOON_REWORK</div>
+                        <div class="text-yellow-400 font-semibold">50 Spins</div>
+                        <div><span class="new-badge">ACTIVE</span></div>
+                    </div>
+                    <div class="text-center p-6">
+                        <button class="code-button" onclick="copyCode('SOUL_SOON_REWORK')">
+                            <i class="fas fa-copy mr-2"></i>
+                            Copy Code
+                        </button>
+                    </div>
+                </div>
+            </div> </div>
+                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
+                        <div class="font-mono font-bold text-lg">SOUL_SOON_REWORK</div>
+                        <div class="text-yellow-400 font-semibold">50 Spins</div>
+                        <div><span class="new-badge">ACTIVE</span></div>
+                  <div class="text-center p-6">
+                        <button class="code-button" onclick="copyCode('SOUL_SOON_REWORK')">
+                            <i class="fas fa-copy mr-2"></i>
+                            Copy Code
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
+
+
+            <!-- Expired Codes -->
+            <div class="glow-card mb-12 overflow-hidden">
+                <div class="table-header">
+                    <h2 class="text-3xl font-bold">
+                        <i class="fas fa-hourglass-end mr-3"></i>
+                        Expired Codes
+                    </h2>
+                </div>
+                <div class="table-glow">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-1 text-center text-sm font-semibold bg-gray-800 text-gray-300">
+                        <div class="p-4 font-bold">CODE</div>
+                        <div class="p-4 font-bold">REWARD</div>
+                        <div class="p-4 font-bold">STATUS</div>
+                    </div>
+                    
+                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
+                        <div class="font-mono font-bold">PROJECTION_20K</div>
+                        <div class="text-yellow-400">100 Spins</div>
+                        <div><span class="expired-badge">EXPIRED</span></div>
+                    </div>
+                    
+                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
+                        <div class="font-mono font-bold">PROJECTION_OUT</div>
+                        <div class="text-yellow-400">100 Spins</div>
+                        <div><span class="expired-badge">EXPIRED</span></div>
+                    </div>
+                    
+                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
+                        <div class="font-mono font-bold">PROJECTION_SOON</div>
+                        <div class="text-yellow-400">50 Spins</div>
+                        <div><span class="expired-badge">EXPIRED</span></div>
+                    </div>
+                    
+                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
+                        <div class="font-mono font-bold">THUNDER_GOD</div>
+                        <div class="text-yellow-400">100 Spins</div>
+                        <div><span class="expired-badge">EXPIRED</span></div>
+                    </div>
+                    
+                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
+                        <div class="font-mono font-bold">20K_FOLLOW_THUNDR</div>
+                        <div class="text-yellow-400">100 Spins</div>
+                        <div><span class="expired-badge">EXPIRED</span></div>
+                    </div>
+                    
+                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
+                        <div class="font-mono font-bold">THUNDER_SOON</div>
+                        <div class="text-yellow-400">50 Spins</div>
+                        <div><span class="expired-badge">EXPIRED</span></div>
+                    </div>
+                    
+                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
+                        <div class="font-mono font-bold">MECH_SHUTDOWN</div>
+                        <div class="text-yellow-400">30 Spins</div>
+                        <div><span class="expired-badge">EXPIRED</span></div>
+                    </div>
+                    
+                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
+                        <div class="font-mono font-bold">MECH_MAX</div>
+                        <div class="text-yellow-400">150 Spins</div>
+                        <div><span class="expired-badge">EXPIRED</span></div>
+                    </div>
+                    
+                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
+                        <div class="font-mono font-bold">MECH_SOON</div>
+                        <div class="text-yellow-400">25 Spins</div>
+                        <div><span class="expired-badge">EXPIRED</span></div>
+                    </div>
+                    
+                    <div class="table-row grid grid-cols-1 md:grid-cols-3 gap-1 text-center p-4 text-white">
+                        <div class="font-mono font-bold">ANCIENT_CONSTRUCT</div>
+                        <div class="text-yellow-400">25 Spins</div>
+                        <div><span class="expired-badge">EXPIRED</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How to Redeem -->
+            <div class="glow-card mb-12">
+                <div class="table-header">
+                    <h2 class="text-3xl font-bold">
+                        <i class="fas fa-cog mr-3"></i>
+                        How to Redeem Codes
+                    </h2>
+                </div>
+                <div class="p-8">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="ml-16">
+                            <h3 class="text-xl font-bold text-purple-300 mb-2">Launch the Game</h3>
+                            <p class="text-gray-300">Run <strong>Jujutsu Infinite</strong> in Roblox</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="ml-16">
+                            <h3 class="text-xl font-bold text-purple-300 mb-2">Open Customize Menu</h3>
+                            <p class="text-gray-300">Go to <strong>Customize</strong> via the main menu</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="ml-16">
+                            <h3 class="text-xl font-bold text-purple-300 mb-2">Find Code Input</h3>
+                            <p class="text-gray-300">Click on <strong>Redeem Code Here</strong> in the menu on the right</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="ml-16">
+                            <h3 class="text-xl font-bold text-purple-300 mb-2">Enter Code</h3>
+                            <p class="text-gray-300">Enter an active code into the <strong>text box</strong></p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">5</div>
+                        <div class="ml-16">
+                            <h3 class="text-xl font-bold text-purple-300 mb-2">Claim Rewards</h3>
+                            <p class="text-gray-300">Click on the <strong>blue arrow icon</strong> to grab your free goodies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Info -->
+            <div class="glow-card mb-12">
+                <div class="table-header">
+                    <h2 class="text-3xl font-bold">
+                        <i class="fas fa-gamepad mr-3"></i>
+                        About Jujutsu Infinite
+                    </h2>
+                </div>
+                <div class="p-8">
+                    <p class="text-gray-300 text-lg leading-relaxed mb-6">
+                        Jujutsu Infinite is an impressive Roblox RPG experience based on the hugely popular <em>Jujutsu Kaisen</em> series. Create a Jujutsu sorcerer with Skills and Innate Techniques of your choosing and dive into a thrilling story-driven adventure where you get to face many cursed spirits and challenging bosses.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-purple-900 bg-opacity-30 p-6 rounded-lg">
+                            <h3 class="text-xl font-bold text-purple-300 mb-3">
+                                <i class="fas fa-magic mr-2"></i>
+                                Key Features
+                            </h3>
+                            <ul class="text-gray-300 space-y-2">
+                                <li><i class="fas fa-check text-green-400 mr-2"></i>Story-driven adventure</li>
+                                <li><i class="fas fa-check text-green-400 mr-2"></i>Character customization</li>
+                                <li><i class="fas fa-check text-green-400 mr-2"></i>Innate Techniques system</li>
+                                <li><i class="fas fa-check text-green-400 mr-2"></i>PvP combat mode</li>
+                            </ul>
+                        </div>
+                        <div class="bg-blue-900 bg-opacity-30 p-6 rounded-lg">
+                            <h3 class="text-xl font-bold text-blue-300 mb-3">
+                                <i class="fas fa-users mr-2"></i>
+                                Community
+                            </h3>
+                            <p class="text-gray-300 mb-4">Join thousands of players in this epic Jujutsu Kaisen experience!</p>
+                            <button class="code-button" onclick="openDiscord()">
+                                <i class="fab fa-discord mr-2"></i>
+                                Join Discord
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="copyright-footer text-center py-8 px-4">
+            <div class="container mx-auto">
+                <div class="flex flex-col items-center space-y-4">
+                    <div class="cursed-text text-2xl font-bold">JUJUTSU INFINITE CODES</div>
+                    <div class="flex items-center space-x-6 text-gray-400">
+                        <div class="flex items-center">
+                            <i class="fas fa-copyright mr-2"></i>
+                            <span>2025 All Rights Reserved</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-code mr-2"></i>
+                            <span>Ultimate Codes Guide</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 text-sm text-gray-500">
+                        <span>Built with</span>
+                        <i class="fas fa-heart text-red-500"></i>
+                        <span>for the Jujutsu Kaisen community</span>
+                    </div>
+                    <div class="text-xs text-gray-600">
+                        This website is not affiliated with Jujutsu Kaisen or Roblox Corporation
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script>
-        // Copy to clipboard functionality
-        function copyToClipboard(elementId) {
-            const element = document.getElementById(elementId);
-            const text = element.textContent;
+        // Generate cursed energy particles
+        function createEnergyParticles() {
+            const container = document.getElementById('cursedEnergy');
+            const particleCount = window.innerWidth < 768 ? 30 : 50;
             
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(text).then(function() {
-                    showCopyNotification();
-                });
-            } else {
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'energy-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Copy code to clipboard
+        function copyCode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                showNotification();
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
                 // Fallback for older browsers
                 const textArea = document.createElement('textarea');
-                textArea.value = text;
+                textArea.value = code;
                 document.body.appendChild(textArea);
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-                showCopyNotification();
-            }
+                showNotification();
+            });
         }
 
-        function showCopyNotification() {
-            // Create notification element
-            const notification = document.createElement('div');
-            notification.innerHTML = '<i class="fas fa-check mr-2"></i>Script copied to clipboard!';
-            notification.className = 'notification fixed top-4 right-4 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
-            
-            document.body.appendChild(notification);
-            
-            // Animate in
+        // Show notification
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
             setTimeout(() => {
-                notification.classList.remove('translate-x-full');
-            }, 100);
-            
-            // Animate out and remove
-            setTimeout(() => {
-                notification.classList.add('translate-x-full');
-                setTimeout(() => {
-                    if (document.body.contains(notification)) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            }, 2500);
+                notification.classList.remove('show');
+            }, 3000);
         }
 
-        // Create floating particles
-        function createFloatingParticles() {
-            const particlesContainer = document.getElementById('floating-particles');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                // Random size between 2px and 8px
-                const size = Math.random() * 6 + 2;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                
-                // Random horizontal position
-                particle.style.left = Math.random() * 100 + '%';
-                
-                // Random animation delay
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                
-                // Random animation duration
-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                
-                particlesContainer.appendChild(particle);
-            }
+        // Open Discord
+        function openDiscord() {
+            window.open('https://discord.gg/jujutsuinfinite', '_blank');
         }
 
-        // Add hover effects to script cards
+        // Add hover effects to cards
         document.addEventListener('DOMContentLoaded', function() {
-            createFloatingParticles();
-            
-            // Add fade-in animation observer
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in-up');
-                    }
+            const cards = document.querySelectorAll('.glow-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
                 });
-            }, observerOptions);
-
-            // Observe all script cards
-            document.querySelectorAll('.script-card:not(.fade-in-up)').forEach(card => {
-                observer.observe(card);
-            });
-
-            // Add copy button enhancements
-            document.querySelectorAll('.copy-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const spinner = document.createElement('div');
-                    spinner.className = 'loading-spinner';
-                    
-                    const originalContent = this.innerHTML;
-                    this.innerHTML = '';
-                    this.appendChild(spinner);
-                    
-                    setTimeout(() => {
-                        this.innerHTML = '<i class="fas fa-check mr-2"></i>Copied!';
-                        setTimeout(() => {
-                            this.innerHTML = originalContent;
-                        }, 1000);
-                    }, 500);
-                });
-            });
-
-            // Add scroll-based animations
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const rate = scrolled * -0.5;
-                
-                // Parallax effect for floating particles
-                const particles = document.querySelectorAll('.particle');
-                particles.forEach((particle, index) => {
-                    const speed = (index % 3 + 1) * 0.1;
-                    particle.style.transform = `translateY(${rate * speed}px)`;
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
                 });
             });
         });
 
-        // Add dynamic background color change based on scroll
-        window.addEventListener('scroll', () => {
-            const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-            const hue = 250 + (scrollPercent * 60); // Changes from purple to blue
-            document.querySelector('.animated-bg').style.filter = `hue-rotate(${hue}deg)`;
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
 
-        // Add click ripple effect
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('copy-btn') || e.target.closest('.copy-btn')) {
-                const btn = e.target.classList.contains('copy-btn') ? e.target : e.target.closest('.copy-btn');
+        // Initialize particles when page loads
+        window.addEventListener('load', createEnergyParticles);
+        
+        // Regenerate particles on resize
+        window.addEventListener('resize', function() {
+            const container = document.getElementById('cursedEnergy');
+            container.innerHTML = '';
+            createEnergyParticles();
+        });
+
+        // Add click effect to code buttons
+        document.querySelectorAll('.code-button').forEach(button => {
+            button.addEventListener('click', function(e) {
                 const ripple = document.createElement('span');
-                const rect = btn.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.left = (e.clientX - e.target.offsetLeft) + 'px';
+                ripple.style.top = (e.clientY - e.target.offsetTop) + 'px';
                 
-                ripple.style.width = ripple.style.height = size + 'px';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.classList.add('ripple');
-                
-                btn.appendChild(ripple);
+                this.appendChild(ripple);
                 
                 setTimeout(() => {
                     ripple.remove();
                 }, 600);
-            }
+            });
         });
-    </script>
 
-    <style>
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(0);
-            animation: ripple-animation 0.6s linear;
-            pointer-events: none;
-        }
-
-        @keyframes ripple-animation {
-            to {
-                transform: scale(4);
-                opacity: 0;
+        // Add CSS for ripple effect
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
             }
-        }
-    </style>
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
